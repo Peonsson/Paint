@@ -80,6 +80,7 @@ public class Paint extends JFrame {
         menuPanel.add(jLabel);
         menuPanel.add(thicknessComboBox);
         menuPanel.add(filledCheckBox);
+        filledCheckBox.setSelected(true);
         ButtonGroup buttonGroup = new ButtonGroup();
         blackRadioButton.setSelected(true);
         buttonGroup.add(blackRadioButton);
@@ -217,10 +218,10 @@ public class Paint extends JFrame {
         protected void paintComponent(Graphics g) {
             super.paintComponent(g);
 
-            System.out.println("number of shapes on canvas: " + shapes.size());
             for (Shape shape : shapes) {
 
-                System.out.println(shape.toString());
+                //System.out.println(shape.toString());
+
                 int x1 = shape.getX1();
                 int x2 = shape.getX2();
                 int y1 = shape.getY1();

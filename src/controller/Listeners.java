@@ -68,8 +68,6 @@ public class Listeners {
 
             @Override
             public void mouseReleased(MouseEvent e) {
-                System.out.println("got here");
-
                 int thickness = Integer.parseInt((String) paint.getThicknessComboBox().getSelectedItem());
                 Color color = getColor();
                 boolean isFilled = paint.getFilledCheckBox().isSelected();
