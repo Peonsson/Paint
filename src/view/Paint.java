@@ -230,18 +230,18 @@ public class Paint extends JFrame {
                 int thickness = shape.getThickness();
                 Color color = shape.getColor();
 
-                if(shape instanceof Line) {
+                if (shape instanceof Line) {
 
                     g.setColor(color);
                     g.drawLine(x1, y1, x2, y2);
-                } else if(shape instanceof Rectangle) {
+                } else if (shape instanceof Rectangle) {
                     g.setColor(color);
                     if (isFilled) {
                         g.fillRect(x1, y1, x2, y2); //alpha
                     } else {
                         g.drawRect(x1, y1, x2, y2); //alpha
                     }
-                } else if(shape instanceof Oval) {
+                } else if (shape instanceof Oval) {
                     g.setColor(color);
                     if (isFilled) {
                         g.fillOval(x1, y1, x2, y2); //alpha

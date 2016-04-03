@@ -39,7 +39,7 @@ public class Listeners {
                     paint.setY1(y);
                     paint.setX2(width);
                     paint.setY2(height);
-                } else if (paint.getShapeType() == paint.LINE){
+                } else if (paint.getShapeType() == paint.LINE) {
                     x = mousePressedX;
                     y = mousePressedY;
                     width = mouseDraggedX;
@@ -76,10 +76,10 @@ public class Listeners {
 
                 if (paint.getShapeType() == paint.LINE)
                     paint.getShapes().add(new Line(x, y, width, height, color, thickness));
-                else if(paint.getShapeType() == paint.RECTANGLE)
-                    paint.getShapes().add(new Rectangle(x, y, width, height, isFilled,  color, thickness));
-                else if(paint.getShapeType() == paint.OVAL)
-                    paint.getShapes().add(new Oval(x, y, width, height, isFilled,  color, thickness));
+                else if (paint.getShapeType() == paint.RECTANGLE)
+                    paint.getShapes().add(new Rectangle(x, y, width, height, isFilled, color, thickness));
+                else if (paint.getShapeType() == paint.OVAL)
+                    paint.getShapes().add(new Oval(x, y, width, height, isFilled, color, thickness));
                 else
                     System.err.println("FATAL ERROR WHEN ADDING SHAPES!");
                 paint.repaint();
