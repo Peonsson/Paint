@@ -1,30 +1,18 @@
 package model;
 
+import java.awt.*;
+
 /**
  * Created by Peonsson on 2016-04-03.
  */
 public class Oval extends Shape {
 
-    private int width = 20;
-    private int height = 20;
-
     public Oval() {
         super();
     }
 
-    public int getWidth() {
-        return width;
+    public Oval(int x1, int y1, int x2, int y2, boolean isFilled, Color color, int thickness) {
+        super(x1, y1, x2, y2, isFilled, color, thickness);
     }
 
-    public void setWidth(int width) {
-        this.width = width;
-    }
-
-    public int getHeight() {
-        return height;
-    }
-
-    public void setHeight(int height) {
-        this.height = height;
-    }
 }

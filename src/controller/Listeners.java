@@ -1,7 +1,10 @@
 package controller;
 
+import model.*;
+import model.Rectangle;
 import view.Paint;
 
+import java.awt.*;
 import java.awt.event.*;
 
 /**
@@ -13,8 +16,10 @@ public class Listeners {
     private int width;
     private int height;
     private int x, y;
+    private Paint paint;
 
     public Listeners(Paint paint) {
+        this.paint = paint;
 
         /*
             Canvas
@@ -28,21 +33,19 @@ public class Listeners {
                 if (paint.getShapeType() == paint.RECTANGLE || paint.getShapeType() == paint.OVAL) {
                     width = Math.abs(mouseDraggedX - mousePressedX);
                     height = Math.abs(mouseDraggedY - mousePressedY);
-
                     x = Math.min(mouseDraggedX, mousePressedX);
                     y = Math.min(mouseDraggedY, mousePressedY);
-
                     paint.setX1(x);
                     paint.setY1(y);
                     paint.setX2(width);
                     paint.setY2(height);
-                    paint.repaint();
+                } else if (paint.getShapeType() == paint.LINE){
+                    x = mousePressedX;
+                    y = mousePressedY;
+                    width = mouseDraggedX;
+                    height = mouseDraggedY;
                 } else {
-                    paint.setX1(mousePressedX);
-                    paint.setY1(mousePressedY);
-                    paint.setX2(mouseDraggedX);
-                    paint.setY2(mouseDraggedY);
-                    paint.repaint();
+                    System.err.println("FATAL ERROR UNRECOGNISED SHAPE!");
                 }
             }
 
@@ -65,7 +68,21 @@ public class Listeners {
 
             @Override
             public void mouseReleased(MouseEvent e) {
+                System.out.println("got here");
 
+                int thickness = Integer.parseInt((String) paint.getThicknessComboBox().getSelectedItem());
+                Color color = getColor();
+                boolean isFilled = paint.getFilledCheckBox().isSelected();
+
+                if (paint.getShapeType() == paint.LINE)
+                    paint.getShapes().add(new Line(x, y, width, height, color, thickness));
+                else if(paint.getShapeType() == paint.RECTANGLE)
+                    paint.getShapes().add(new Rectangle(x, y, width, height, isFilled,  color, thickness));
+                else if(paint.getShapeType() == paint.OVAL)
+                    paint.getShapes().add(new Oval(x, y, width, height, isFilled,  color, thickness));
+                else
+                    System.err.println("FATAL ERROR WHEN ADDING SHAPES!");
+                paint.repaint();
             }
 
             @Override
@@ -86,24 +103,28 @@ public class Listeners {
             @Override
             public void actionPerformed(ActionEvent e) {
                 paint.setColor(paint.BLACK);
+                System.out.println("set color: " + paint.getColor());
             }
         });
         paint.getBlueRadioButton().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 paint.setColor(paint.BLUE);
+                System.out.println("set color: " + paint.getColor());
             }
         });
         paint.getRedRadioButton().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 paint.setColor(paint.RED);
+                System.out.println("set color: " + paint.getColor());
             }
         });
         paint.getYellowRadioButton().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 paint.setColor(paint.YELLOW);
+                System.out.println("set color: " + paint.getColor());
             }
         });
 
@@ -114,18 +135,21 @@ public class Listeners {
             @Override
             public void actionPerformed(ActionEvent e) {
                 paint.setType(paint.LINE);
+                System.out.println("set shape: " + paint.getShapeType());
             }
         });
         paint.getOvalButton().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 paint.setType(paint.OVAL);
+                System.out.println("set shape: " + paint.getShapeType());
             }
         });
         paint.getRectButton().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 paint.setType(paint.RECTANGLE);
+                System.out.println("set shape: " + paint.getShapeType());
             }
         });
 
@@ -136,12 +160,14 @@ public class Listeners {
             @Override
             public void actionPerformed(ActionEvent e) {
                 //@TODO: implement save
+                System.out.println("clicked save button");
             }
         });
         paint.getLoadButton().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 //@TODO: implement load
+                System.out.println("clicked load button");
             }
         });
 
@@ -152,12 +178,14 @@ public class Listeners {
             @Override
             public void actionPerformed(ActionEvent e) {
                 //@TODO: implement undo
+                System.out.println("clicked undo button");
             }
         });
         paint.getRedoButton().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 //@TODO: implement redo
+                System.out.println("clicked redo button");
             }
         });
 
@@ -168,6 +196,7 @@ public class Listeners {
             @Override
             public void actionPerformed(ActionEvent e) {
                 paint.setFilled(paint.getFilledCheckBox().isSelected());
+                System.out.println("set filled: " + paint.getFilledCheckBox().isSelected());
             }
         });
 
@@ -178,6 +207,7 @@ public class Listeners {
             @Override
             public void actionPerformed(ActionEvent e) {
                 //@TODO: implement thickness
+                System.out.println("set thickness: " + paint.getThicknessComboBox().getSelectedItem().toString());
             }
         });
 
@@ -188,7 +218,22 @@ public class Listeners {
             @Override
             public void actionPerformed(ActionEvent e) {
                 //@TODO: implement select
+                System.out.println("clicked select button");
             }
         });
+    }
+
+    private Color getColor() {
+        int color = paint.getColor();
+        if (color == paint.BLACK)
+            return Color.BLACK;
+        else if (color == paint.BLUE)
+            return Color.BLUE;
+        else if (color == paint.YELLOW)
+            return Color.YELLOW;
+        else if (color == paint.RED)
+            return Color.RED;
+        else
+            return null;
     }
 }

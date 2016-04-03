@@ -1,10 +1,14 @@
 package view;
 
 import controller.Listeners;
+import model.*;
+import model.Rectangle;
+import model.Shape;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
+import java.util.ArrayList;
 
 /**
  * Created by Peonsson on 2016-04-03.
@@ -20,6 +24,8 @@ public class Paint extends JFrame {
         paint.pack();
         paint.setVisible(true);
     }
+
+    private ArrayList<Shape> shapes = new ArrayList<Shape>();
 
     public static final int LINE = 1;
     public static final int RECTANGLE = 2;
@@ -87,6 +93,18 @@ public class Paint extends JFrame {
         canvas.setPreferredSize(new Dimension(0, 600));
         canvas.setBorder(new LineBorder(Color.BLACK));
         add(canvas, BorderLayout.CENTER);
+    }
+
+    public ArrayList<Shape> getShapes() {
+        return shapes;
+    }
+
+    public void setShapes(ArrayList<Shape> shapes) {
+        this.shapes = shapes;
+    }
+
+    public int getColor() {
+        return color;
     }
 
     public int getShapeType() {
@@ -189,20 +207,6 @@ public class Paint extends JFrame {
         return canvas;
     }
 
-    private Color getColor() {
-        switch (color) {
-            case BLACK:
-                return Color.BLACK;
-            case YELLOW:
-                return Color.YELLOW;
-            case RED:
-                return Color.RED;
-            case BLUE:
-                return Color.BLUE;
-        }
-        return Color.GREEN;
-    }
-
     private class myCanvas extends JPanel {
 
         public myCanvas() {
@@ -213,26 +217,40 @@ public class Paint extends JFrame {
         protected void paintComponent(Graphics g) {
             super.paintComponent(g);
 
-            switch (type) {
-                case LINE:
-                    g.setColor(getColor());
+            System.out.println("number of shapes on canvas: " + shapes.size());
+            for (Shape shape : shapes) {
+
+                System.out.println(shape.toString());
+                int x1 = shape.getX1();
+                int x2 = shape.getX2();
+                int y1 = shape.getY1();
+                int y2 = shape.getY2();
+
+                boolean isFilled = shape.isFilled();
+                int thickness = shape.getThickness();
+                Color color = shape.getColor();
+
+                if(shape instanceof Line) {
+
+                    g.setColor(color);
                     g.drawLine(x1, y1, x2, y2);
-                    break;
-                case RECTANGLE:
-                    g.setColor(getColor());
-                    if (isFilled()) {
+                } else if(shape instanceof Rectangle) {
+                    g.setColor(color);
+                    if (isFilled) {
                         g.fillRect(x1, y1, x2, y2); //alpha
                     } else {
                         g.drawRect(x1, y1, x2, y2); //alpha
                     }
-                    break;
-                case OVAL:
-                    g.setColor(getColor());
-                    if (isFilled()) {
+                } else if(shape instanceof Oval) {
+                    g.setColor(color);
+                    if (isFilled) {
                         g.fillOval(x1, y1, x2, y2); //alpha
                     } else {
                         g.drawOval(x1, y1, x2, y2); //alpha
                     }
+                } else {
+                    System.err.println("unrecognised shape!");
+                }
             }
         }
     }
