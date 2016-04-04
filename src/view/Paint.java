@@ -1,7 +1,8 @@
 package view;
 
 import controller.Listeners;
-import model.*;
+import model.Line;
+import model.Oval;
 import model.Rectangle;
 import model.Shape;
 
