@@ -254,7 +254,7 @@ public class Paint extends JFrame implements Serializable {
 
                 if (shape instanceof Line) {
                     Graphics2D g2 = (Graphics2D) g;
-                    g2.setStroke(new BasicStroke(shape.getThickness()));
+                    g2.setStroke(new BasicStroke(thickness));
                     g.setColor(color);
                     g.drawLine(x1, y1, x2, y2);
                 } else if (shape instanceof Rectangle) {
