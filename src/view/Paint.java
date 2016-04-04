@@ -240,14 +240,10 @@ public class Paint extends JFrame implements Serializable {
             super.paintComponent(g);
 
             for (Shape shape : shapes) {
-
-                //System.out.println(shape.toString());
-
                 int x1 = shape.getX1();
                 int x2 = shape.getX2();
                 int y1 = shape.getY1();
                 int y2 = shape.getY2();
-
                 boolean isFilled = shape.isFilled();
                 int thickness = shape.getThickness();
                 Color color = shape.getColor();
