@@ -185,12 +185,8 @@ public class Listeners implements Serializable {
                     ArrayList<Shape> shapes = (ArrayList<Shape>) objectInputStream.readObject();
                     paint.setShapes(shapes);
                     paint.repaint();
-                } catch (FileNotFoundException e1) {
-                    e1.printStackTrace();
-                } catch (IOException e1) {
-                    e1.printStackTrace();
-                } catch (ClassNotFoundException e1) {
-                    e1.printStackTrace();
+                } catch (Exception ex) {
+                    ex.printStackTrace();
                 }
             }
         });
