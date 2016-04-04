@@ -65,7 +65,7 @@ public class Paint extends JFrame implements Serializable {
     private JRadioButton redRadioButton = new JRadioButton("red");
     private JRadioButton blueRadioButton = new JRadioButton("blue");
     private JLabel jLabel = new JLabel("thickness");
-    private String[] thickness = {"1", "2", "3", "4", "5"};
+    private String[] thickness = {"1", "3", "5", "7", "9"};
     private JComboBox thicknessComboBox = new JComboBox(thickness);
     private JCheckBox filledCheckBox = new JCheckBox("isFilled");
 
@@ -253,7 +253,8 @@ public class Paint extends JFrame implements Serializable {
                 Color color = shape.getColor();
 
                 if (shape instanceof Line) {
-
+                    Graphics2D g2 = (Graphics2D) g;
+                    g2.setStroke(new BasicStroke(shape.getThickness()));
                     g.setColor(color);
                     g.drawLine(x1, y1, x2, y2);
                 } else if (shape instanceof Rectangle) {
