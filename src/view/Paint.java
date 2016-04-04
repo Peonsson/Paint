@@ -26,6 +26,7 @@ public class Paint extends JFrame {
     }
 
     private ArrayList<Shape> shapes = new ArrayList<Shape>();
+    private ArrayList<Shape> undoShapes = new ArrayList<Shape>();
 
     public static final int LINE = 1;
     public static final int RECTANGLE = 2;
@@ -94,6 +95,14 @@ public class Paint extends JFrame {
         canvas.setPreferredSize(new Dimension(0, 600));
         canvas.setBorder(new LineBorder(Color.BLACK));
         add(canvas, BorderLayout.CENTER);
+    }
+
+    public ArrayList<Shape> getUndoShapes() {
+        return undoShapes;
+    }
+
+    public void setUndoShapes(ArrayList<Shape> undoShapes) {
+        this.undoShapes = undoShapes;
     }
 
     public ArrayList<Shape> getShapes() {

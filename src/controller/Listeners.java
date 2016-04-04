@@ -175,15 +175,23 @@ public class Listeners {
         paint.getUndoButton().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //@TODO: implement undo
-                System.out.println("clicked undo button");
+                int size = paint.getShapes().size();
+                if(size > 0) {
+                    model.Shape temp = paint.getShapes().remove(size - 1);
+                    paint.getUndoShapes().add(temp);
+                    paint.repaint();
+                }
             }
         });
         paint.getRedoButton().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //@TODO: implement redo
-                System.out.println("clicked redo button");
+                int size = paint.getUndoShapes().size();
+                if(size > 0) {
+                    model.Shape temp = paint.getUndoShapes().remove(size - 1);
+                    paint.getShapes().add(temp);
+                    paint.repaint();
+                }
             }
         });
 
