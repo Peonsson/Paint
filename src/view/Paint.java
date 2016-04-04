@@ -34,6 +34,7 @@ public class Paint extends JFrame implements Serializable {
     public static final int LINE = 1;
     public static final int RECTANGLE = 2;
     public static final int OVAL = 3;
+    public static final int SELECT = 4;
     private int type = 1;
 
     public static final int BLACK = 1;
