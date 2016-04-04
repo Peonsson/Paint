@@ -26,8 +26,6 @@ public class Paint extends JFrame implements Serializable {
         paint.setVisible(true);
     }
 
-    private boolean animating = false;
-
     private ArrayList<Shape> shapes = new ArrayList<Shape>();
     private ArrayList<Shape> undoShapes = new ArrayList<Shape>();
 
@@ -99,14 +97,6 @@ public class Paint extends JFrame implements Serializable {
         canvas.setPreferredSize(new Dimension(0, 600));
         canvas.setBorder(new LineBorder(Color.BLACK));
         add(canvas, BorderLayout.CENTER);
-    }
-
-    public boolean isAnimating() {
-        return animating;
-    }
-
-    public void setAnimating(boolean animating) {
-        this.animating = animating;
     }
 
     public ArrayList<Shape> getUndoShapes() {
