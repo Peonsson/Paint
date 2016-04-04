@@ -101,10 +101,12 @@ public class Listeners implements Serializable {
                         int y2 = shape.getY2();
                         if (mouseClickedX < x1 + x2 && mouseClickedX > x1) { // we are within x
                             if (mouseClickedY < y1 + y2 && mouseClickedY > y1) { // we are within y
-                                selectedShape = shape;
-                                shape.setColor(Color.LIGHT_GRAY);
-                                paint.repaint();
-                                return;
+                                if(shape instanceof Oval ||shape instanceof Rectangle) { // we don't support Lines
+                                    selectedShape = shape;
+                                    shape.setColor(Color.LIGHT_GRAY);
+                                    paint.repaint();
+                                    return;
+                                }
                             }
                         }
                     }
