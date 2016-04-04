@@ -160,21 +160,15 @@ public class Listeners implements Serializable {
         paint.getSaveButton().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //@TODO: implement save
-                System.out.println("clicked save button");
-
                 try {
                     ArrayList<Shape> undoShapes = paint.getUndoShapes();
                     ArrayList<Shape> shapes = paint.getShapes();
-
                     FileOutputStream fileOutputStream = new FileOutputStream("temp.dat");
                     ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
                     objectOutputStream.writeObject(undoShapes);
                     objectOutputStream.writeObject(shapes);
                     objectOutputStream.close();
-
                     System.out.println("saved file");
-
                 } catch (Exception ex) {
                     ex.printStackTrace();
                 }
