@@ -32,16 +32,11 @@ public class Listeners implements Serializable {
             public void mouseDragged(MouseEvent e) {
                 int mouseDraggedX = e.getX();
                 int mouseDraggedY = e.getY();
-
                 if (paint.getShapeType() == paint.RECTANGLE || paint.getShapeType() == paint.OVAL) {
                     width = Math.abs(mouseDraggedX - mousePressedX);
                     height = Math.abs(mouseDraggedY - mousePressedY);
                     x = Math.min(mouseDraggedX, mousePressedX);
                     y = Math.min(mouseDraggedY, mousePressedY);
-                    paint.setX1(x);
-                    paint.setY1(y);
-                    paint.setX2(width);
-                    paint.setY2(height);
                 } else if (paint.getShapeType() == paint.LINE) {
                     x = mousePressedX;
                     y = mousePressedY;
@@ -50,6 +45,13 @@ public class Listeners implements Serializable {
                 } else {
                     System.err.println("FATAL ERROR UNRECOGNISED SHAPE!");
                 }
+                int size = paint.getShapes().size();
+                model.Shape temp = paint.getShapes().get(size - 1);
+                temp.setX1(x);
+                temp.setY1(y);
+                temp.setX2(width);
+                temp.setY2(height);
+                paint.repaint();
             }
 
             @Override
@@ -67,10 +69,6 @@ public class Listeners implements Serializable {
             public void mousePressed(MouseEvent e) {
                 mousePressedX = e.getX();
                 mousePressedY = e.getY();
-            }
-
-            @Override
-            public void mouseReleased(MouseEvent e) {
                 int thickness = Integer.parseInt((String) paint.getThicknessComboBox().getSelectedItem());
                 Color color = getColor();
                 boolean isFilled = paint.getFilledCheckBox().isSelected();
@@ -84,6 +82,11 @@ public class Listeners implements Serializable {
                 else
                     System.err.println("FATAL ERROR WHEN ADDING SHAPES!");
                 paint.repaint();
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+
             }
 
             @Override
@@ -168,7 +171,6 @@ public class Listeners implements Serializable {
                     objectOutputStream.writeObject(undoShapes);
                     objectOutputStream.writeObject(shapes);
                     objectOutputStream.close();
-                    System.out.println("saved file");
                 } catch (Exception ex) {
                     ex.printStackTrace();
                 }
