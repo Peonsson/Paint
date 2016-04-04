@@ -2,15 +2,18 @@ package controller;
 
 import model.*;
 import model.Rectangle;
+import model.Shape;
 import view.Paint;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.io.*;
+import java.util.ArrayList;
 
 /**
  * Created by Peonsson on 2016-04-03.
  */
-public class Listeners {
+public class Listeners implements Serializable {
 
     private int mousePressedX, mousePressedY;
     private int width;
@@ -159,13 +162,42 @@ public class Listeners {
             public void actionPerformed(ActionEvent e) {
                 //@TODO: implement save
                 System.out.println("clicked save button");
+
+                try {
+                    ArrayList<Shape> undoShapes = paint.getUndoShapes();
+                    ArrayList<Shape> shapes = paint.getShapes();
+
+                    FileOutputStream fileOutputStream = new FileOutputStream("temp.dat");
+                    ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
+                    objectOutputStream.writeObject(undoShapes);
+                    objectOutputStream.writeObject(shapes);
+                    objectOutputStream.close();
+
+                    System.out.println("saved file");
+
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
             }
         });
         paint.getLoadButton().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //@TODO: implement load
-                System.out.println("clicked load button");
+                try {
+                    FileInputStream fileInputStream = new FileInputStream("temp.dat");
+                    ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
+                    ArrayList<Shape> undoShapes = (ArrayList<Shape>) objectInputStream.readObject();
+                    paint.setUndoShapes(undoShapes);
+                    ArrayList<Shape> shapes = (ArrayList<Shape>) objectInputStream.readObject();
+                    paint.setShapes(shapes);
+                    paint.repaint();
+                } catch (FileNotFoundException e1) {
+                    e1.printStackTrace();
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                } catch (ClassNotFoundException e1) {
+                    e1.printStackTrace();
+                }
             }
         });
 
@@ -176,7 +208,7 @@ public class Listeners {
             @Override
             public void actionPerformed(ActionEvent e) {
                 int size = paint.getShapes().size();
-                if(size > 0) {
+                if (size > 0) {
                     model.Shape temp = paint.getShapes().remove(size - 1);
                     paint.getUndoShapes().add(temp);
                     paint.repaint();
@@ -187,7 +219,7 @@ public class Listeners {
             @Override
             public void actionPerformed(ActionEvent e) {
                 int size = paint.getUndoShapes().size();
-                if(size > 0) {
+                if (size > 0) {
                     model.Shape temp = paint.getUndoShapes().remove(size - 1);
                     paint.getShapes().add(temp);
                     paint.repaint();

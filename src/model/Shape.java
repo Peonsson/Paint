@@ -1,11 +1,12 @@
 package model;
 
 import java.awt.*;
+import java.io.Serializable;
 
 /**
  * Created by Peonsson on 2016-04-03.
  */
-public class Shape {
+public class Shape implements Serializable {
 
     private int x1 = 0;
     private int y1 = 0;

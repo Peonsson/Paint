@@ -8,12 +8,13 @@ import model.Shape;
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * Created by Peonsson on 2016-04-03.
  */
-public class Paint extends JFrame {
+public class Paint extends JFrame implements Serializable {
 
     public static void main(String[] args) {
         Paint paint = new Paint();
