@@ -43,8 +43,6 @@ public class Listeners implements Serializable {
                     y = mousePressedY;
                     width = mouseDraggedX;
                     height = mouseDraggedY;
-                } else {
-                    System.err.println("FATAL ERROR UNRECOGNISED SHAPE!");
                 }
                 int size = paint.getShapes().size();
                 model.Shape temp = paint.getShapes().get(size - 1);
@@ -64,7 +62,7 @@ public class Listeners implements Serializable {
             @Override
             public void mouseClicked(MouseEvent e) {
 
-                if(paint.getShapeType() == paint.SELECT) {
+                if (paint.getShapeType() == paint.SELECT) {
 
                     int size = paint.getShapes().size();
 
@@ -74,7 +72,7 @@ public class Listeners implements Serializable {
                     System.out.println("mouseClickedX: " + mouseClickedX);
                     System.out.println("mouseClickedY: " + mouseClickedY);
 
-                    for (int i = size - 1; i >= 0 ; i--) { // for all shapes
+                    for (int i = size - 1; i >= 0; i--) { // for all shapes
 
                         Shape shape = paint.getShapes().get(i);
                         int x1 = shape.getX1();
@@ -83,8 +81,8 @@ public class Listeners implements Serializable {
                         int y2 = shape.getY2();
                         System.out.println(shape.toString());
 
-                        if(mouseClickedX < x1 + x2 && mouseClickedX > x1) { // we are within x
-                            if(mouseClickedY < y1 + y2 && mouseClickedY > y1) { // we are within y
+                        if (mouseClickedX < x1 + x2 && mouseClickedX > x1) { // we are within x
+                            if (mouseClickedY < y1 + y2 && mouseClickedY > y1) { // we are within y
                                 selectedShape = shape;
                                 shape.setColor(Color.LIGHT_GRAY);
                                 System.out.println("we selected shape " + i);
@@ -111,8 +109,6 @@ public class Listeners implements Serializable {
                     paint.getShapes().add(new Rectangle(x, y, width, height, isFilled, color, thickness));
                 else if (paint.getShapeType() == paint.OVAL)
                     paint.getShapes().add(new Oval(x, y, width, height, isFilled, color, thickness));
-                else
-                    System.err.println("FATAL ERROR WHEN ADDING SHAPES!");
                 paint.repaint();
             }
 
@@ -140,8 +136,8 @@ public class Listeners implements Serializable {
             public void actionPerformed(ActionEvent e) {
                 paint.setColor(paint.BLACK);
                 System.out.println("set color: " + paint.getColor());
-                if(selectedShape != null) {
-                    if(paint.getShapeType() == paint.SELECT) {
+                if (selectedShape != null) {
+                    if (paint.getShapeType() == paint.SELECT) {
                         selectedShape.setColor(Color.BLACK);
                         paint.repaint();
                     }
@@ -153,8 +149,8 @@ public class Listeners implements Serializable {
             public void actionPerformed(ActionEvent e) {
                 paint.setColor(paint.BLUE);
                 System.out.println("set color: " + paint.getColor());
-                if(selectedShape != null) {
-                    if(paint.getShapeType() == paint.SELECT) {
+                if (selectedShape != null) {
+                    if (paint.getShapeType() == paint.SELECT) {
                         selectedShape.setColor(Color.BLUE);
                         paint.repaint();
                     }
@@ -166,8 +162,8 @@ public class Listeners implements Serializable {
             public void actionPerformed(ActionEvent e) {
                 paint.setColor(paint.RED);
                 System.out.println("set color: " + paint.getColor());
-                if(selectedShape != null) {
-                    if(paint.getShapeType() == paint.SELECT) {
+                if (selectedShape != null) {
+                    if (paint.getShapeType() == paint.SELECT) {
                         selectedShape.setColor(Color.RED);
                         paint.repaint();
                     }
@@ -179,8 +175,8 @@ public class Listeners implements Serializable {
             public void actionPerformed(ActionEvent e) {
                 paint.setColor(paint.YELLOW);
                 System.out.println("set color: " + paint.getColor());
-                if(selectedShape != null) {
-                    if(paint.getShapeType() == paint.SELECT) {
+                if (selectedShape != null) {
+                    if (paint.getShapeType() == paint.SELECT) {
                         selectedShape.setColor(Color.YELLOW);
                         paint.repaint();
                     }
