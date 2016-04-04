@@ -35,7 +35,7 @@ public class Listeners implements Serializable {
                 int mouseDraggedX = e.getX();
                 int mouseDraggedY = e.getY();
 
-                //@TODO: implement select drag logic
+                //@TODO: implement select and drag shape
 //                if (paint.getShapeType() == paint.SELECT) {
 //                    int size = paint.getShapes().size();
 //                    int mouseClickedX = e.getX();
