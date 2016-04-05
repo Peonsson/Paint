@@ -127,7 +127,6 @@ public class Listeners implements Serializable {
                     paint.getShapes().add(new Rectangle(x, y, width, height, isFilled, color, thickness));
                 else if (paint.getShapeType() == paint.OVAL)
                     paint.getShapes().add(new Oval(x, y, width, height, isFilled, color, thickness));
-                paint.repaint();
             }
 
             @Override
