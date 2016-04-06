@@ -13,7 +13,7 @@ import java.util.ArrayList;
 /**
  * Created by Peonsson on 2016-04-03.
  */
-public class Listeners implements Serializable {
+public class Listeners {
 
     private int mousePressedX, mousePressedY;
     private int width;
@@ -108,7 +108,7 @@ public class Listeners implements Serializable {
                                 currentY = selectedShape.getY1();
 
                                 /*
-                                    Update isFilled checkbox
+                                    Update isFilled checkbox to match selection
                                  */
                                 boolean isFilled = selectedShape.isFilled();
                                 paint.getFilledCheckBox().setSelected(isFilled);
@@ -166,7 +166,7 @@ public class Listeners implements Serializable {
         });
 
         /*
-            Black
+            Black radio button
          */
         paint.getBlackRadioButton().addActionListener(new ActionListener() {
             @Override
@@ -182,7 +182,7 @@ public class Listeners implements Serializable {
         });
 
         /*
-            Blue
+            Blue radio button
          */
         paint.getBlueRadioButton().addActionListener(new ActionListener() {
             @Override
@@ -198,7 +198,7 @@ public class Listeners implements Serializable {
         });
 
         /*
-            Red
+            Red radio button
          */
         paint.getRedRadioButton().addActionListener(new ActionListener() {
             @Override
@@ -213,7 +213,7 @@ public class Listeners implements Serializable {
             }
         });
         /*
-            Yellow
+            Yellow radio button
          */
         paint.getYellowRadioButton().addActionListener(new ActionListener() {
             @Override
@@ -229,7 +229,7 @@ public class Listeners implements Serializable {
         });
 
         /*
-            Line
+            Line button
          */
         paint.getLineButton().addActionListener(new ActionListener() {
             @Override
@@ -239,7 +239,7 @@ public class Listeners implements Serializable {
         });
 
         /*
-            Oval
+            Oval button
          */
         paint.getOvalButton().addActionListener(new ActionListener() {
             @Override
@@ -249,7 +249,7 @@ public class Listeners implements Serializable {
         });
 
         /*
-            Rect
+            Rect button
          */
         paint.getRectButton().addActionListener(new ActionListener() {
             @Override
@@ -259,7 +259,7 @@ public class Listeners implements Serializable {
         });
 
         /*
-            Select
+            Select button
          */
         paint.getSelectButton().addActionListener(new ActionListener() {
             @Override
@@ -269,7 +269,7 @@ public class Listeners implements Serializable {
         });
 
         /*
-            Save
+            Save button
          */
         paint.getSaveButton().addActionListener(new ActionListener() {
             @Override
@@ -289,7 +289,7 @@ public class Listeners implements Serializable {
         });
 
         /*
-            Load
+            Load button
          */
         paint.getLoadButton().addActionListener(new ActionListener() {
             @Override
@@ -309,7 +309,7 @@ public class Listeners implements Serializable {
         });
 
         /*
-            Undo
+            Undo button
          */
         paint.getUndoButton().addActionListener(new ActionListener() {
             @Override
@@ -324,7 +324,7 @@ public class Listeners implements Serializable {
         });
 
         /*
-            Redo
+            Redo button
          */
         paint.getRedoButton().addActionListener(new ActionListener() {
             @Override
@@ -339,7 +339,7 @@ public class Listeners implements Serializable {
         });
 
         /*
-            Filled
+            Filled checkbox
          */
         paint.getFilledCheckBox().addActionListener(new ActionListener() {
             @Override

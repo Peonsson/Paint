@@ -15,7 +15,7 @@ import java.util.ArrayList;
 /**
  * Created by Peonsson on 2016-04-03.
  */
-public class Paint extends JFrame implements Serializable {
+public class Paint extends JFrame {
 
     public static void main(String[] args) {
         Paint paint = new Paint();
