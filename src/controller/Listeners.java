@@ -336,18 +336,11 @@ public class Listeners {
                 }
             }
         });
-
-        /*
-            Filled checkbox
-         */
-        paint.getFilledCheckBox().addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                paint.setFilled(paint.getFilledCheckBox().isSelected());
-            }
-        });
     }
 
+    /*
+        Converts a final static int to a Color object
+     */
     private Color getColor() {
         int color = paint.getColor();
         if (color == paint.BLACK)

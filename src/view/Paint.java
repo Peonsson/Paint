@@ -33,8 +33,8 @@ public class Paint extends JFrame {
     /*
         Member variables
      */
-    private ArrayList<Shape> shapes = new ArrayList<Shape>();
-    private ArrayList<Shape> undoShapes = new ArrayList<Shape>();
+    private ArrayList<Shape> shapes = new ArrayList<>();
+    private ArrayList<Shape> undoShapes = new ArrayList<>();
 
     public static final int LINE = 1;
     public static final int RECTANGLE = 2;
@@ -47,8 +47,6 @@ public class Paint extends JFrame {
     public static final int RED = 3;
     public static final int BLUE = 4;
     private int color = 1;
-
-    private boolean filled = false;
 
     private myCanvas canvas = new myCanvas();
     private JPanel menuPanel = new JPanel();
@@ -178,10 +176,6 @@ public class Paint extends JFrame {
 
     public int getShapeType() {
         return type;
-    }
-
-    public void setFilled(boolean filled) {
-        this.filled = filled;
     }
 
     public void setType(int type) {
