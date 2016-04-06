@@ -17,6 +17,9 @@ import java.util.ArrayList;
 
 public class Paint extends JFrame {
 
+    /*
+        A simple main method
+     */
     public static void main(String[] args) {
         Paint paint = new Paint();
         new Listeners(paint);
@@ -27,6 +30,9 @@ public class Paint extends JFrame {
         paint.setVisible(true);
     }
 
+    /*
+        Member variables
+     */
     private ArrayList<Shape> shapes = new ArrayList<Shape>();
     private ArrayList<Shape> undoShapes = new ArrayList<Shape>();
 
