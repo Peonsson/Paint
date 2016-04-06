@@ -104,13 +104,14 @@ public class Paint extends JFrame {
         add(canvas, BorderLayout.CENTER);
     }
 
-    /*
-        Paint logic
-     */
     private class myCanvas extends JPanel {
 
-        public myCanvas() { }
+        public myCanvas() {
+        }
 
+        /*
+            Paint logic
+        */
         @Override
         protected void paintComponent(Graphics g) {
             super.paintComponent(g);
@@ -147,8 +148,6 @@ public class Paint extends JFrame {
                         g2.setStroke(new BasicStroke(thickness));
                         g.drawOval(x1, y1, x2, y2);
                     }
-                } else {
-                    System.err.println("unrecognised shape!");
                 }
             }
         }
