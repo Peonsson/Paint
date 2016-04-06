@@ -108,14 +108,12 @@ public class Listeners {
                                 currentY = selectedShape.getY1();
 
                                 /*
-                                    Update checkbox to match selection
+                                    Update view to match selection
                                  */
                                 boolean isFilled = selectedShape.isFilled();
                                 paint.getFilledCheckBox().setSelected(isFilled);
-
-                                /*
-                                    Update radio buttons to match selection
-                                 */
+                                int thickness = selectedShape.getThickness();
+                                paint.getThicknessComboBox().setSelectedIndex(thickness/2);
                                 Color color = selectedShape.getColor();
                                 if (color == Color.BLUE) {
                                     paint.getBlueRadioButton().setSelected(true);

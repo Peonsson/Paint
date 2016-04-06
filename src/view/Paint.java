@@ -59,7 +59,7 @@ public class Paint extends JFrame {
     private JRadioButton redRadioButton = new JRadioButton("red");
     private JRadioButton blueRadioButton = new JRadioButton("blue");
     private JLabel jLabel = new JLabel("thickness");
-    private String[] thickness = {"1", "3", "5", "7", "9"};
+    private String[] thickness = {"1", "3", "5", "7", "9", "11", "13", "15"};
     private JComboBox thicknessComboBox = new JComboBox(thickness);
     private JCheckBox filledCheckBox = new JCheckBox("isFilled");
 
@@ -218,6 +218,8 @@ public class Paint extends JFrame {
                     if (isFilled) {
                         g.fillRect(x1, y1, x2, y2);
                     } else {
+                        Graphics2D g2 = (Graphics2D) g;
+                        g2.setStroke(new BasicStroke(thickness));
                         g.drawRect(x1, y1, x2, y2);
                     }
                 } else if (shape instanceof Oval) {
@@ -225,6 +227,8 @@ public class Paint extends JFrame {
                     if (isFilled) {
                         g.fillOval(x1, y1, x2, y2);
                     } else {
+                        Graphics2D g2 = (Graphics2D) g;
+                        g2.setStroke(new BasicStroke(thickness));
                         g.drawOval(x1, y1, x2, y2);
                     }
                 } else {
