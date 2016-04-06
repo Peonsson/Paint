@@ -19,7 +19,7 @@ public class Paint extends JFrame implements Serializable {
 
     public static void main(String[] args) {
         Paint paint = new Paint();
-        Listeners listeners = new Listeners(paint);
+        new Listeners(paint);
         paint.setTitle("Paint");
         paint.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         paint.setLocationRelativeTo(null);
@@ -43,11 +43,6 @@ public class Paint extends JFrame implements Serializable {
     private int color = 1;
 
     private boolean filled = false;
-
-    private int x1;
-    private int y1;
-    private int x2;
-    private int y2;
 
     private myCanvas canvas = new myCanvas();
     private JPanel menuPanel = new JPanel();
@@ -124,10 +119,6 @@ public class Paint extends JFrame implements Serializable {
         return type;
     }
 
-    public boolean isFilled() {
-        return filled;
-    }
-
     public void setFilled(boolean filled) {
         this.filled = filled;
     }
@@ -140,22 +131,6 @@ public class Paint extends JFrame implements Serializable {
         this.color = color;
     }
 
-    public void setX1(int x1) {
-        this.x1 = x1;
-    }
-
-    public void setY1(int y1) {
-        this.y1 = y1;
-    }
-
-    public void setX2(int x2) {
-        this.x2 = x2;
-    }
-
-    public void setY2(int y2) {
-        this.y2 = y2;
-    }
-
     public JButton getSelectButton() {
         return selectButton;
     }
@@ -166,10 +141,6 @@ public class Paint extends JFrame implements Serializable {
 
     public JButton getRedoButton() {
         return redoButton;
-    }
-
-    public String[] getThickness() {
-        return thickness;
     }
 
     public JComboBox getThicknessComboBox() {
@@ -222,9 +193,7 @@ public class Paint extends JFrame implements Serializable {
 
     private class myCanvas extends JPanel {
 
-        public myCanvas() {
-
-        }
+        public myCanvas() { }
 
         @Override
         protected void paintComponent(Graphics g) {
@@ -247,16 +216,16 @@ public class Paint extends JFrame implements Serializable {
                 } else if (shape instanceof Rectangle) {
                     g.setColor(color);
                     if (isFilled) {
-                        g.fillRect(x1, y1, x2, y2); //alpha
+                        g.fillRect(x1, y1, x2, y2);
                     } else {
-                        g.drawRect(x1, y1, x2, y2); //alpha
+                        g.drawRect(x1, y1, x2, y2);
                     }
                 } else if (shape instanceof Oval) {
                     g.setColor(color);
                     if (isFilled) {
-                        g.fillOval(x1, y1, x2, y2); //alpha
+                        g.fillOval(x1, y1, x2, y2);
                     } else {
-                        g.drawOval(x1, y1, x2, y2); //alpha
+                        g.drawOval(x1, y1, x2, y2);
                     }
                 } else {
                     System.err.println("unrecognised shape!");
