@@ -14,40 +14,23 @@ import java.util.ArrayList;
 /**
  * Created by Peonsson on 2016-04-03.
  */
-
 public class Paint extends JFrame {
-
-    /*
-        A simple main method
-     */
-    public static void main(String[] args) {
-        Paint paint = new Paint();
-        new Listeners(paint);
-        paint.setTitle("Paint");
-        paint.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        paint.setLocationRelativeTo(null);
-        paint.pack();
-        paint.setVisible(true);
-    }
-
-    /*
-        Member variables
-     */
-    private ArrayList<Shape> shapes = new ArrayList<>();
-    private ArrayList<Shape> undoShapes = new ArrayList<>();
 
     public static final int LINE = 1;
     public static final int RECTANGLE = 2;
     public static final int OVAL = 3;
     public static final int SELECT = 4;
-    private int type = 1;
-
     public static final int BLACK = 1;
     public static final int YELLOW = 2;
     public static final int RED = 3;
     public static final int BLUE = 4;
+    /*
+        Member variables
+     */
+    private ArrayList<Shape> shapes = new ArrayList<>();
+    private ArrayList<Shape> undoShapes = new ArrayList<>();
+    private int type = 1;
     private int color = 1;
-
     private myCanvas canvas = new myCanvas();
     private JPanel menuPanel = new JPanel();
     private JButton saveButton = new JButton("save");
@@ -66,7 +49,6 @@ public class Paint extends JFrame {
     private String[] thickness = {"1", "3", "5", "7", "9", "11", "13", "15"};
     private JComboBox thicknessComboBox = new JComboBox(thickness);
     private JCheckBox filledCheckBox = new JCheckBox("isFilled");
-
     /*
         Constructor
      */
@@ -102,53 +84,17 @@ public class Paint extends JFrame {
         add(canvas, BorderLayout.CENTER);
     }
 
-    private class myCanvas extends JPanel {
-
-        public myCanvas() {
-        }
-
-        /*
-            Paint logic
-        */
-        @Override
-        protected void paintComponent(Graphics g) {
-            super.paintComponent(g);
-
-            for (Shape shape : shapes) {
-                int x1 = shape.getX1();
-                int x2 = shape.getX2();
-                int y1 = shape.getY1();
-                int y2 = shape.getY2();
-                boolean isFilled = shape.isFilled();
-                int thickness = shape.getThickness();
-                Color color = shape.getColor();
-
-                if (shape instanceof Line) {
-                    Graphics2D g2 = (Graphics2D) g;
-                    g2.setStroke(new BasicStroke(thickness));
-                    g.setColor(color);
-                    g.drawLine(x1, y1, x2, y2);
-                } else if (shape instanceof Rectangle) {
-                    g.setColor(color);
-                    if (isFilled) {
-                        g.fillRect(x1, y1, x2, y2);
-                    } else {
-                        Graphics2D g2 = (Graphics2D) g;
-                        g2.setStroke(new BasicStroke(thickness));
-                        g.drawRect(x1, y1, x2, y2);
-                    }
-                } else if (shape instanceof Oval) {
-                    g.setColor(color);
-                    if (isFilled) {
-                        g.fillOval(x1, y1, x2, y2);
-                    } else {
-                        Graphics2D g2 = (Graphics2D) g;
-                        g2.setStroke(new BasicStroke(thickness));
-                        g.drawOval(x1, y1, x2, y2);
-                    }
-                }
-            }
-        }
+    /*
+        A simple main method
+     */
+    public static void main(String[] args) {
+        Paint paint = new Paint();
+        new Listeners(paint);
+        paint.setTitle("Paint");
+        paint.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        paint.setLocationRelativeTo(null);
+        paint.pack();
+        paint.setVisible(true);
     }
 
     /*
@@ -174,16 +120,16 @@ public class Paint extends JFrame {
         return color;
     }
 
+    public void setColor(int color) {
+        this.color = color;
+    }
+
     public int getShapeType() {
         return type;
     }
 
     public void setType(int type) {
         this.type = type;
-    }
-
-    public void setColor(int color) {
-        this.color = color;
     }
 
     public JButton getSelectButton() {
@@ -244,5 +190,54 @@ public class Paint extends JFrame {
 
     public JPanel getCanvas() {
         return canvas;
+    }
+
+    private class myCanvas extends JPanel {
+
+        public myCanvas() {
+        }
+
+        /*
+            Paint logic
+        */
+        @Override
+        protected void paintComponent(Graphics g) {
+            super.paintComponent(g);
+
+            for (Shape shape : shapes) {
+                int x1 = shape.getX1();
+                int x2 = shape.getX2();
+                int y1 = shape.getY1();
+                int y2 = shape.getY2();
+                boolean isFilled = shape.isFilled();
+                int thickness = shape.getThickness();
+                Color color = shape.getColor();
+
+                if (shape instanceof Line) {
+                    Graphics2D g2 = (Graphics2D) g;
+                    g2.setStroke(new BasicStroke(thickness));
+                    g.setColor(color);
+                    g.drawLine(x1, y1, x2, y2);
+                } else if (shape instanceof Rectangle) {
+                    g.setColor(color);
+                    if (isFilled) {
+                        g.fillRect(x1, y1, x2, y2);
+                    } else {
+                        Graphics2D g2 = (Graphics2D) g;
+                        g2.setStroke(new BasicStroke(thickness));
+                        g.drawRect(x1, y1, x2, y2);
+                    }
+                } else if (shape instanceof Oval) {
+                    g.setColor(color);
+                    if (isFilled) {
+                        g.fillOval(x1, y1, x2, y2);
+                    } else {
+                        Graphics2D g2 = (Graphics2D) g;
+                        g2.setStroke(new BasicStroke(thickness));
+                        g.drawOval(x1, y1, x2, y2);
+                    }
+                }
+            }
+        }
     }
 }
