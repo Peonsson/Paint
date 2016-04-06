@@ -28,7 +28,7 @@ public class Listeners implements Serializable {
         this.paint = paint;
 
         /*
-            Canvas
+            Animating new shapes / moving existing shapes
          */
         paint.getCanvas().addMouseMotionListener(new MouseMotionListener() {
             @Override
@@ -41,7 +41,6 @@ public class Listeners implements Serializable {
                         selectedShape.setX1(currentX + mouseDraggedX - mousePressedX);
                         selectedShape.setY1(currentY + mouseDraggedY - mousePressedY);
                         paint.repaint();
-                        System.out.println("got here");
                         return;
                     }
                 }
@@ -73,19 +72,26 @@ public class Listeners implements Serializable {
 
             }
         });
+
+        /*
+            Logic for drawing on canvas
+         */
         paint.getCanvas().addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
 
             }
 
+            /*
+                Selecting  / creating new shapes
+             */
             @Override
             public void mousePressed(MouseEvent e) {
                 mousePressedX = e.getX();
                 mousePressedY = e.getY();
 
                 /*
-                    Trying to select a shape (Line not supported)
+                    Selecting a shape
                  */
                 if (paint.getShapeType() == paint.SELECT) {
                     int listSize = paint.getShapes().size();
@@ -123,7 +129,7 @@ public class Listeners implements Serializable {
                 }
 
                 /*
-                    Create a new shape
+                    Create new shape
                  */
                 int thickness = Integer.parseInt((String) paint.getThicknessComboBox().getSelectedItem());
                 Color color = getColor();
@@ -154,7 +160,7 @@ public class Listeners implements Serializable {
         });
 
         /*
-            Radio buttons
+            Black
          */
         paint.getBlackRadioButton().addActionListener(new ActionListener() {
             @Override
@@ -168,6 +174,10 @@ public class Listeners implements Serializable {
                 }
             }
         });
+
+        /*
+            Blue
+         */
         paint.getBlueRadioButton().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -180,6 +190,10 @@ public class Listeners implements Serializable {
                 }
             }
         });
+
+        /*
+            Red
+         */
         paint.getRedRadioButton().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -192,6 +206,9 @@ public class Listeners implements Serializable {
                 }
             }
         });
+        /*
+            Yellow
+         */
         paint.getYellowRadioButton().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -206,7 +223,7 @@ public class Listeners implements Serializable {
         });
 
         /*
-            Shapes
+            Line
          */
         paint.getLineButton().addActionListener(new ActionListener() {
             @Override
@@ -214,12 +231,20 @@ public class Listeners implements Serializable {
                 paint.setType(paint.LINE);
             }
         });
+
+        /*
+            Oval
+         */
         paint.getOvalButton().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 paint.setType(paint.OVAL);
             }
         });
+
+        /*
+            Rect
+         */
         paint.getRectButton().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -238,7 +263,7 @@ public class Listeners implements Serializable {
         });
 
         /*
-            Save / Load
+            Save
          */
         paint.getSaveButton().addActionListener(new ActionListener() {
             @Override
@@ -256,6 +281,10 @@ public class Listeners implements Serializable {
                 }
             }
         });
+
+        /*
+            Load
+         */
         paint.getLoadButton().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -274,7 +303,7 @@ public class Listeners implements Serializable {
         });
 
         /*
-            Undo / Redo
+            Undo
          */
         paint.getUndoButton().addActionListener(new ActionListener() {
             @Override
@@ -287,6 +316,10 @@ public class Listeners implements Serializable {
                 }
             }
         });
+
+        /*
+            Redo
+         */
         paint.getRedoButton().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -306,18 +339,6 @@ public class Listeners implements Serializable {
             @Override
             public void actionPerformed(ActionEvent e) {
                 paint.setFilled(paint.getFilledCheckBox().isSelected());
-                System.out.println("set filled: " + paint.getFilledCheckBox().isSelected());
-            }
-        });
-
-        /*
-            Thickness
-         */
-        paint.getThicknessComboBox().addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                //@TODO: implement thickness
-                System.out.println("set thickness: " + paint.getThicknessComboBox().getSelectedItem().toString());
             }
         });
     }
