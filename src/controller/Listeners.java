@@ -108,6 +108,12 @@ public class Listeners implements Serializable {
                                 currentY = selectedShape.getY1();
 
                                 /*
+                                    Update isFilled checkbox
+                                 */
+                                boolean isFilled = selectedShape.isFilled();
+                                paint.getFilledCheckBox().setSelected(isFilled);
+
+                                /*
                                     Update color on radio buttons to match selection
                                  */
                                 Color color = selectedShape.getColor();
