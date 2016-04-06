@@ -19,6 +19,8 @@ public class Listeners implements Serializable {
     private int width;
     private int height;
     private int x, y;
+    private int currentX;
+    private int currentY;
     private Paint paint;
     private Shape selectedShape;
 
@@ -31,35 +33,17 @@ public class Listeners implements Serializable {
         paint.getCanvas().addMouseMotionListener(new MouseMotionListener() {
             @Override
             public void mouseDragged(MouseEvent e) {
-
                 int mouseDraggedX = e.getX();
                 int mouseDraggedY = e.getY();
 
-                //@TODO: implement select and drag shape
-//                if (paint.getShapeType() == paint.SELECT) {
-//                    int size = paint.getShapes().size();
-//                    int mouseClickedX = e.getX();
-//                    int mouseClickedY = e.getY();
-//                    System.out.println("mouseClickedX: " + mouseClickedX);
-//                    System.out.println("mouseClickedY: " + mouseClickedY);
-//                    for (int i = size - 1; i >= 0; i--) { // for all shapes
-//                        Shape shape = paint.getShapes().get(i);
-//                        int x1 = shape.getX1();
-//                        int x2 = shape.getX2();
-//                        int y1 = shape.getY1();
-//                        int y2 = shape.getY2();
-//                        if (mouseClickedX < x1 + x2 && mouseClickedX > x1) { // we are within x
-//                            if (mouseClickedY < y1 + y2 && mouseClickedY > y1) { // we are within y
-//                                selectedShape = shape;
-//                                shape.setColor(Color.LIGHT_GRAY);
-//                                System.out.println("we selected shape " + i);
-//                                paint.repaint();
-//                                return;
-//                            }
-//                        }
-//                    }
-//                    return;
-//            }
+                if (paint.getShapeType() == paint.SELECT) {
+                    if (selectedShape instanceof Rectangle || selectedShape instanceof Oval) {
+                        selectedShape.setX1(currentX + mouseDraggedX - mousePressedX);
+                        selectedShape.setY1(currentY + mouseDraggedY - mousePressedY);
+                        paint.repaint();
+                        return;
+                    }
+                }
 
                 if (paint.getShapeType() == paint.RECTANGLE || paint.getShapeType() == paint.OVAL) {
                     width = Math.abs(mouseDraggedX - mousePressedX);
@@ -103,7 +87,6 @@ public class Listeners implements Serializable {
                             if (mouseClickedY < y1 + y2 && mouseClickedY > y1) { // we are within y
                                 if (shape instanceof Oval || shape instanceof Rectangle) { // we don't support Lines
                                     selectedShape = shape;
-                                    shape.setColor(Color.LIGHT_GRAY);
                                     paint.repaint();
                                     return;
                                 }
@@ -115,8 +98,35 @@ public class Listeners implements Serializable {
 
             @Override
             public void mousePressed(MouseEvent e) {
+
                 mousePressedX = e.getX();
                 mousePressedY = e.getY();
+
+                //@TODO: implement select and drag shape
+                if (paint.getShapeType() == paint.SELECT) {
+                    int listSize = paint.getShapes().size();
+                    System.out.println("mousePressedX: " + mousePressedX);
+                    System.out.println("mousePressedY: " + mousePressedY);
+                    for (int i = listSize - 1; i >= 0; i--) { // for all shapes
+                        Shape shape = paint.getShapes().get(i);
+                        int x1 = shape.getX1();
+                        int x2 = shape.getX2();
+                        int y1 = shape.getY1();
+                        int y2 = shape.getY2();
+                        if (mousePressedX < x1 + x2 && mousePressedX > x1) { // we are within x
+                            if (mousePressedY < y1 + y2 && mousePressedY > y1) { // we are within y
+                                selectedShape = shape;
+                                currentX = selectedShape.getX1();
+                                currentY = selectedShape.getY1();
+                                System.out.println(selectedShape.toString());
+                                return;
+                            }
+                        }
+                    }
+                    System.out.println("failed to press shape");
+                    return;
+                }
+
                 int thickness = Integer.parseInt((String) paint.getThicknessComboBox().getSelectedItem());
                 Color color = getColor();
                 boolean isFilled = paint.getFilledCheckBox().isSelected();
