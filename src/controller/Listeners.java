@@ -108,13 +108,13 @@ public class Listeners {
                                 currentY = selectedShape.getY1();
 
                                 /*
-                                    Update isFilled checkbox to match selection
+                                    Update checkbox to match selection
                                  */
                                 boolean isFilled = selectedShape.isFilled();
                                 paint.getFilledCheckBox().setSelected(isFilled);
 
                                 /*
-                                    Update color on radio buttons to match selection
+                                    Update radio buttons to match selection
                                  */
                                 Color color = selectedShape.getColor();
                                 if (color == Color.BLUE) {
