@@ -3,7 +3,7 @@ package controller;
 import model.*;
 import model.Rectangle;
 import model.Shape;
-import view.Paint;
+import view.View;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -13,7 +13,7 @@ import java.util.ArrayList;
 /**
  * Created by Peonsson on 2016-04-03.
  */
-public class Listeners {
+public class Controller {
 
     private int mousePressedX, mousePressedY;
     private int width;
@@ -21,49 +21,51 @@ public class Listeners {
     private int x, y;
     private int currentX;
     private int currentY;
-    private Paint paint;
+    private View view;
     private Shape selectedShape;
+    private Model model;
 
-    public Listeners(Paint paint) {
-        this.paint = paint;
+    public Controller(View view, Model model) {
+        this.view = view;
+        this.model = model;
 
         /*
             Animating new shapes / moving existing shapes
          */
-        paint.getCanvas().addMouseMotionListener(new MouseMotionListener() {
+        view.getCanvas().addMouseMotionListener(new MouseMotionListener() {
             @Override
             public void mouseDragged(MouseEvent e) {
                 int mouseDraggedX = e.getX();
                 int mouseDraggedY = e.getY();
 
-                if (paint.getShapeType() == paint.SELECT && selectedShape != null) {
+                if (view.getShapeType() == view.SELECT && selectedShape != null) {
                     if (selectedShape instanceof Rectangle || selectedShape instanceof Oval) {
                         selectedShape.setX1(currentX + mouseDraggedX - mousePressedX);
                         selectedShape.setY1(currentY + mouseDraggedY - mousePressedY);
-                        paint.repaint();
+                        view.repaint();
                         return;
                     }
                 }
 
-                if (paint.getShapeType() == paint.RECTANGLE || paint.getShapeType() == paint.OVAL || paint.getShapeType() == paint.LINE) {
-                    if (paint.getShapeType() == paint.RECTANGLE || paint.getShapeType() == paint.OVAL) {
+                if (view.getShapeType() == view.RECTANGLE || view.getShapeType() == view.OVAL || view.getShapeType() == view.LINE) {
+                    if (view.getShapeType() == view.RECTANGLE || view.getShapeType() == view.OVAL) {
                         width = Math.abs(mouseDraggedX - mousePressedX);
                         height = Math.abs(mouseDraggedY - mousePressedY);
                         x = Math.min(mouseDraggedX, mousePressedX);
                         y = Math.min(mouseDraggedY, mousePressedY);
-                    } else if (paint.getShapeType() == paint.LINE) {
+                    } else if (view.getShapeType() == view.LINE) {
                         x = mousePressedX;
                         y = mousePressedY;
                         width = mouseDraggedX;
                         height = mouseDraggedY;
                     }
-                    int size = paint.getShapes().size();
-                    model.Shape temp = paint.getShapes().get(size - 1);
+                    int size = view.getShapes().size();
+                    model.Shape temp = view.getShapes().get(size - 1);
                     temp.setX1(x);
                     temp.setY1(y);
                     temp.setX2(width);
                     temp.setY2(height);
-                    paint.repaint();
+                    view.repaint();
                 }
             }
 
@@ -76,7 +78,7 @@ public class Listeners {
         /*
             Logic for drawing on canvas
          */
-        paint.getCanvas().addMouseListener(new MouseListener() {
+        view.getCanvas().addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
 
@@ -93,10 +95,10 @@ public class Listeners {
                 /*
                     Selecting a shape
                  */
-                if (paint.getShapeType() == paint.SELECT) {
-                    int listSize = paint.getShapes().size();
+                if (view.getShapeType() == view.SELECT) {
+                    int listSize = view.getShapes().size();
                     for (int i = listSize - 1; i >= 0; i--) { // for all shapes
-                        Shape shape = paint.getShapes().get(i);
+                        Shape shape = view.getShapes().get(i);
                         int x1 = shape.getX1();
                         int x2 = shape.getX2();
                         int y1 = shape.getY1();
@@ -111,18 +113,18 @@ public class Listeners {
                                     Update view to match selection
                                  */
                                 boolean isFilled = selectedShape.isFilled();
-                                paint.getFilledCheckBox().setSelected(isFilled);
+                                view.getFilledCheckBox().setSelected(isFilled);
                                 int thickness = selectedShape.getThickness();
-                                paint.getThicknessComboBox().setSelectedIndex(thickness/2);
+                                view.getThicknessComboBox().setSelectedIndex(thickness/2);
                                 Color color = selectedShape.getColor();
                                 if (color == Color.BLUE) {
-                                    paint.getBlueRadioButton().setSelected(true);
+                                    view.getBlueRadioButton().setSelected(true);
                                 } else if (color == Color.BLACK) {
-                                    paint.getBlackRadioButton().setSelected(true);
+                                    view.getBlackRadioButton().setSelected(true);
                                 } else if (color == Color.YELLOW) {
-                                    paint.getYellowRadioButton().setSelected(true);
+                                    view.getYellowRadioButton().setSelected(true);
                                 } else if (color == Color.RED) {
-                                    paint.getRedRadioButton().setSelected(true);
+                                    view.getRedRadioButton().setSelected(true);
                                 }
                                 return;
                             }
@@ -135,16 +137,16 @@ public class Listeners {
                 /*
                     Create new shape
                  */
-                int thickness = Integer.parseInt((String) paint.getThicknessComboBox().getSelectedItem());
+                int thickness = Integer.parseInt((String) view.getThicknessComboBox().getSelectedItem());
                 Color color = getColor();
-                boolean isFilled = paint.getFilledCheckBox().isSelected();
+                boolean isFilled = view.getFilledCheckBox().isSelected();
 
-                if (paint.getShapeType() == paint.LINE)
-                    paint.getShapes().add(new Line(x, y, width, height, color, thickness));
-                else if (paint.getShapeType() == paint.RECTANGLE)
-                    paint.getShapes().add(new Rectangle(x, y, width, height, isFilled, color, thickness));
-                else if (paint.getShapeType() == paint.OVAL)
-                    paint.getShapes().add(new Oval(x, y, width, height, isFilled, color, thickness));
+                if (view.getShapeType() == view.LINE)
+                    view.getShapes().add(new Line(x, y, width, height, color, thickness));
+                else if (view.getShapeType() == view.RECTANGLE)
+                    view.getShapes().add(new Rectangle(x, y, width, height, isFilled, color, thickness));
+                else if (view.getShapeType() == view.OVAL)
+                    view.getShapes().add(new Oval(x, y, width, height, isFilled, color, thickness));
             }
 
             @Override
@@ -166,14 +168,14 @@ public class Listeners {
         /*
             Black radio button
          */
-        paint.getBlackRadioButton().addActionListener(new ActionListener() {
+        view.getBlackRadioButton().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                paint.setColor(paint.BLACK);
+                view.setColor(view.BLACK);
                 if (selectedShape != null) {
-                    if (paint.getShapeType() == paint.SELECT) {
+                    if (view.getShapeType() == view.SELECT) {
                         selectedShape.setColor(Color.BLACK);
-                        paint.repaint();
+                        view.repaint();
                     }
                 }
             }
@@ -182,14 +184,14 @@ public class Listeners {
         /*
             Blue radio button
          */
-        paint.getBlueRadioButton().addActionListener(new ActionListener() {
+        view.getBlueRadioButton().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                paint.setColor(paint.BLUE);
+                view.setColor(view.BLUE);
                 if (selectedShape != null) {
-                    if (paint.getShapeType() == paint.SELECT) {
+                    if (view.getShapeType() == view.SELECT) {
                         selectedShape.setColor(Color.BLUE);
-                        paint.repaint();
+                        view.repaint();
                     }
                 }
             }
@@ -198,14 +200,14 @@ public class Listeners {
         /*
             Red radio button
          */
-        paint.getRedRadioButton().addActionListener(new ActionListener() {
+        view.getRedRadioButton().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                paint.setColor(paint.RED);
+                view.setColor(view.RED);
                 if (selectedShape != null) {
-                    if (paint.getShapeType() == paint.SELECT) {
+                    if (view.getShapeType() == view.SELECT) {
                         selectedShape.setColor(Color.RED);
-                        paint.repaint();
+                        view.repaint();
                     }
                 }
             }
@@ -214,14 +216,14 @@ public class Listeners {
         /*
             Yellow radio button
          */
-        paint.getYellowRadioButton().addActionListener(new ActionListener() {
+        view.getYellowRadioButton().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                paint.setColor(paint.YELLOW);
+                view.setColor(view.YELLOW);
                 if (selectedShape != null) {
-                    if (paint.getShapeType() == paint.SELECT) {
+                    if (view.getShapeType() == view.SELECT) {
                         selectedShape.setColor(Color.YELLOW);
-                        paint.repaint();
+                        view.repaint();
                     }
                 }
             }
@@ -230,52 +232,52 @@ public class Listeners {
         /*
             Line button
          */
-        paint.getLineButton().addActionListener(new ActionListener() {
+        view.getLineButton().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                paint.setType(paint.LINE);
+                view.setType(view.LINE);
             }
         });
 
         /*
             Oval button
          */
-        paint.getOvalButton().addActionListener(new ActionListener() {
+        view.getOvalButton().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                paint.setType(paint.OVAL);
+                view.setType(view.OVAL);
             }
         });
 
         /*
             Rect button
          */
-        paint.getRectButton().addActionListener(new ActionListener() {
+        view.getRectButton().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                paint.setType(paint.RECTANGLE);
+                view.setType(view.RECTANGLE);
             }
         });
 
         /*
             Select button
          */
-        paint.getSelectButton().addActionListener(new ActionListener() {
+        view.getSelectButton().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                paint.setType(paint.SELECT);
+                view.setType(view.SELECT);
             }
         });
 
         /*
             Save button
          */
-        paint.getSaveButton().addActionListener(new ActionListener() {
+        view.getSaveButton().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    ArrayList<Shape> undoShapes = paint.getUndoShapes();
-                    ArrayList<Shape> shapes = paint.getShapes();
+                    ArrayList<Shape> undoShapes = view.getUndoShapes();
+                    ArrayList<Shape> shapes = view.getShapes();
                     FileOutputStream fileOutputStream = new FileOutputStream("temp.dat");
                     ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
                     objectOutputStream.writeObject(undoShapes);
@@ -290,17 +292,17 @@ public class Listeners {
         /*
             Load button
          */
-        paint.getLoadButton().addActionListener(new ActionListener() {
+        view.getLoadButton().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
                     FileInputStream fileInputStream = new FileInputStream("temp.dat");
                     ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
                     ArrayList<Shape> undoShapes = (ArrayList<Shape>) objectInputStream.readObject();
-                    paint.setUndoShapes(undoShapes);
+                    view.setUndoShapes(undoShapes);
                     ArrayList<Shape> shapes = (ArrayList<Shape>) objectInputStream.readObject();
-                    paint.setShapes(shapes);
-                    paint.repaint();
+                    view.setShapes(shapes);
+                    view.repaint();
                 } catch (Exception ex) {
                     ex.printStackTrace();
                 }
@@ -310,14 +312,14 @@ public class Listeners {
         /*
             Undo button
          */
-        paint.getUndoButton().addActionListener(new ActionListener() {
+        view.getUndoButton().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                int size = paint.getShapes().size();
+                int size = view.getShapes().size();
                 if (size > 0) {
-                    model.Shape temp = paint.getShapes().remove(size - 1);
-                    paint.getUndoShapes().add(temp);
-                    paint.repaint();
+                    model.Shape temp = view.getShapes().remove(size - 1);
+                    view.getUndoShapes().add(temp);
+                    view.repaint();
                 }
             }
         });
@@ -325,31 +327,39 @@ public class Listeners {
         /*
             Redo button
          */
-        paint.getRedoButton().addActionListener(new ActionListener() {
+        view.getRedoButton().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                int size = paint.getUndoShapes().size();
+                int size = view.getUndoShapes().size();
                 if (size > 0) {
-                    model.Shape temp = paint.getUndoShapes().remove(size - 1);
-                    paint.getShapes().add(temp);
-                    paint.repaint();
+                    model.Shape temp = view.getUndoShapes().remove(size - 1);
+                    view.getShapes().add(temp);
+                    view.repaint();
                 }
             }
         });
     }
 
+    public Model getModel() {
+        return model;
+    }
+
+    public void setModel(Model model) {
+        this.model = model;
+    }
+
     /*
-        Converts a final static int to a Color object
+            Converts a final static int to a Color object
      */
     private Color getColor() {
-        int color = paint.getColor();
-        if (color == paint.BLACK)
+        int color = view.getColor();
+        if (color == view.BLACK)
             return Color.BLACK;
-        else if (color == paint.BLUE)
+        else if (color == view.BLUE)
             return Color.BLUE;
-        else if (color == paint.YELLOW)
+        else if (color == view.YELLOW)
             return Color.YELLOW;
-        else if (color == paint.RED)
+        else if (color == view.RED)
             return Color.RED;
         else
             return null;

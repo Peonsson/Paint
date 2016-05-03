@@ -13,7 +13,7 @@ import java.util.ArrayList;
 /**
  * Created by Peonsson on 2016-04-03.
  */
-public class Paint extends JFrame {
+public class View extends JFrame {
 
     public static final int LINE = 1;
     public static final int RECTANGLE = 2;
@@ -51,7 +51,12 @@ public class Paint extends JFrame {
     /*
         Constructor
      */
-    public Paint() {
+    public View() {
+
+        this.setTitle("View");
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setLocationRelativeTo(null);
+
         menuPanel.add(saveButton);
         menuPanel.add(loadButton);
         menuPanel.add(selectButton);
@@ -81,6 +86,8 @@ public class Paint extends JFrame {
         canvas.setPreferredSize(new Dimension(0, 600));
         canvas.setBorder(new LineBorder(Color.BLACK));
         add(canvas, BorderLayout.CENTER);
+        this.pack();
+        this.setVisible(true);
     }
 
     /*
@@ -184,7 +191,7 @@ public class Paint extends JFrame {
         }
 
         /*
-            Paint logic
+            View logic
         */
         @Override
         protected void paintComponent(Graphics g) {
