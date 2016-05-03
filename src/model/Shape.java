@@ -6,7 +6,7 @@ import java.io.Serializable;
 /**
  * Created by Peonsson on 2016-04-03.
  */
-public class Shape implements Serializable {
+public abstract class Shape implements Serializable {
 
     private int x1 = 0;
     private int y1 = 0;
@@ -107,4 +107,6 @@ public class Shape implements Serializable {
                 ", thickness=" + thickness +
                 '}';
     }
+
+    protected abstract void draw(Graphics g);
 }

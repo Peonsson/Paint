@@ -9,6 +9,8 @@ import model.Shape;
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
+import java.util.Observable;
+import java.util.Observer;
 
 /**
  * Created by Peonsson on 2016-04-03.
@@ -182,7 +184,7 @@ public class View extends JFrame {
         return canvas;
     }
 
-    private class myCanvas extends JPanel {
+    private class myCanvas extends JPanel implements Observer {
 
         public myCanvas() {
         }
@@ -231,6 +233,11 @@ public class View extends JFrame {
                     }
                 }
             }
+        }
+
+        @Override
+        public void update(Observable o, Object arg) {
+            this.repaint();
         }
     }
 }
