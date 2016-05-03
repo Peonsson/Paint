@@ -8,13 +8,13 @@ import java.io.Serializable;
  */
 public abstract class Shape implements Serializable {
 
-    private int x1 = 0;
-    private int y1 = 0;
-    private int x2 = 0;
-    private int y2 = 0;
-    private boolean isFilled = false;
-    private Color color = Color.BLACK;
-    private int thickness = 1;
+    protected int x1 = 0;
+    protected int y1 = 0;
+    protected int x2 = 0;
+    protected int y2 = 0;
+    protected boolean isFilled = false;
+    protected Color color = Color.BLACK;
+    protected int thickness = 1;
 
     public Shape() {
 
@@ -108,5 +108,5 @@ public abstract class Shape implements Serializable {
                 '}';
     }
 
-    protected abstract void draw(Graphics g);
+    public abstract void draw(Graphics g);
 }

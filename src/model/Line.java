@@ -12,4 +12,11 @@ public class Line extends Shape implements Serializable {
         super(x1, y1, x2, y2, color, thickness);
     }
 
+    @Override
+    public void draw(Graphics g) {
+        Graphics2D g2 = (Graphics2D) g;
+        g2.setStroke(new BasicStroke(thickness));
+        g.setColor(color);
+        g.drawLine(x1, y1, x2, y2);
+    }
 }

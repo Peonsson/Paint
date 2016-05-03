@@ -1,9 +1,6 @@
 package view;
 
 import controller.Controller;
-import model.Line;
-import model.Oval;
-import model.Rectangle;
 import model.Shape;
 
 import javax.swing.*;
@@ -189,9 +186,6 @@ public class View extends JFrame {
         public myCanvas() {
         }
 
-        /*
-            View logic
-        */
         @Override
         protected void paintComponent(Graphics g) {
             super.paintComponent(g);
@@ -199,40 +193,8 @@ public class View extends JFrame {
             if(controller == null) //check if controller have been initiated yet.
                 return;
 
-            for (Shape shape : controller.getShapes()) {
-                int x1 = shape.getX1();
-                int x2 = shape.getX2();
-                int y1 = shape.getY1();
-                int y2 = shape.getY2();
-                boolean isFilled = shape.isFilled();
-                int thickness = shape.getThickness();
-                Color color = shape.getColor();
-
-                if (shape instanceof Line) {
-                    Graphics2D g2 = (Graphics2D) g;
-                    g2.setStroke(new BasicStroke(thickness));
-                    g.setColor(color);
-                    g.drawLine(x1, y1, x2, y2);
-                } else if (shape instanceof Rectangle) {
-                    g.setColor(color);
-                    if (isFilled) {
-                        g.fillRect(x1, y1, x2, y2);
-                    } else {
-                        Graphics2D g2 = (Graphics2D) g;
-                        g2.setStroke(new BasicStroke(thickness));
-                        g.drawRect(x1, y1, x2, y2);
-                    }
-                } else if (shape instanceof Oval) {
-                    g.setColor(color);
-                    if (isFilled) {
-                        g.fillOval(x1, y1, x2, y2);
-                    } else {
-                        Graphics2D g2 = (Graphics2D) g;
-                        g2.setStroke(new BasicStroke(thickness));
-                        g.drawOval(x1, y1, x2, y2);
-                    }
-                }
-            }
+            for (Shape shape : controller.getShapes())
+                shape.draw(g);
         }
 
         @Override
