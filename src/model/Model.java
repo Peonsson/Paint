@@ -7,11 +7,12 @@ import java.util.ArrayList;
  */
 public class Model {
 
-    private ArrayList<Shape> shapes = new ArrayList<>();
-    private ArrayList<Shape> undoShapes = new ArrayList<>();
+    private ArrayList<Shape> shapes;
+    private ArrayList<Shape> undoShapes;
 
     public Model() {
-
+        this.shapes = new ArrayList<>();
+        this.undoShapes = new ArrayList<>();
     }
 
     public ArrayList<Shape> getShapes() {

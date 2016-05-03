@@ -11,8 +11,8 @@ public class Main {
         A simple main method
     */
     public static void main(String[] args) {
-        View view = new View();
         Model model = new Model();
+        View view = new View();
         new Controller(view, model);
     }
 }

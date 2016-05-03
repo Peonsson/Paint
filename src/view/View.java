@@ -1,5 +1,6 @@
 package view;
 
+import controller.Controller;
 import model.Line;
 import model.Oval;
 import model.Rectangle;
@@ -8,7 +9,6 @@ import model.Shape;
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
-import java.util.ArrayList;
 
 /**
  * Created by Peonsson on 2016-04-03.
@@ -19,15 +19,17 @@ public class View extends JFrame {
     public static final int RECTANGLE = 2;
     public static final int OVAL = 3;
     public static final int SELECT = 4;
+
     public static final int BLACK = 1;
     public static final int YELLOW = 2;
     public static final int RED = 3;
     public static final int BLUE = 4;
+
     /*
         Member variables
      */
-    private ArrayList<Shape> shapes = new ArrayList<>();
-    private ArrayList<Shape> undoShapes = new ArrayList<>();
+    private Controller controller;
+
     private int type = 1;
     private int color = 1;
     private myCanvas canvas = new myCanvas();
@@ -48,6 +50,7 @@ public class View extends JFrame {
     private String[] thickness = {"1", "3", "5", "7", "9", "11", "13", "15"};
     private JComboBox thicknessComboBox = new JComboBox(thickness);
     private JCheckBox filledCheckBox = new JCheckBox("isFilled");
+
     /*
         Constructor
      */
@@ -86,6 +89,7 @@ public class View extends JFrame {
         canvas.setPreferredSize(new Dimension(0, 600));
         canvas.setBorder(new LineBorder(Color.BLACK));
         add(canvas, BorderLayout.CENTER);
+
         this.pack();
         this.setVisible(true);
     }
@@ -93,20 +97,13 @@ public class View extends JFrame {
     /*
         Getters and setters
      */
-    public ArrayList<Shape> getUndoShapes() {
-        return undoShapes;
+
+    public Controller getController() {
+        return controller;
     }
 
-    public void setUndoShapes(ArrayList<Shape> undoShapes) {
-        this.undoShapes = undoShapes;
-    }
-
-    public ArrayList<Shape> getShapes() {
-        return shapes;
-    }
-
-    public void setShapes(ArrayList<Shape> shapes) {
-        this.shapes = shapes;
+    public void setController(Controller controller) {
+        this.controller = controller;
     }
 
     public int getColor() {
@@ -197,7 +194,10 @@ public class View extends JFrame {
         protected void paintComponent(Graphics g) {
             super.paintComponent(g);
 
-            for (Shape shape : shapes) {
+            if(controller == null) //check if controller have been initiated yet.
+                return;
+
+            for (Shape shape : controller.getShapes()) {
                 int x1 = shape.getX1();
                 int x2 = shape.getX2();
                 int y1 = shape.getY1();

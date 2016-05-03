@@ -7,7 +7,10 @@ import view.View;
 
 import java.awt.*;
 import java.awt.event.*;
-import java.io.*;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
 /**
@@ -59,8 +62,8 @@ public class Controller {
                         width = mouseDraggedX;
                         height = mouseDraggedY;
                     }
-                    int size = view.getShapes().size();
-                    model.Shape temp = view.getShapes().get(size - 1);
+                    int size = model.getShapes().size();
+                    model.Shape temp = model.getShapes().get(size - 1);
                     temp.setX1(x);
                     temp.setY1(y);
                     temp.setX2(width);
@@ -96,9 +99,9 @@ public class Controller {
                     Selecting a shape
                  */
                 if (view.getShapeType() == view.SELECT) {
-                    int listSize = view.getShapes().size();
+                    int listSize = model.getShapes().size();
                     for (int i = listSize - 1; i >= 0; i--) { // for all shapes
-                        Shape shape = view.getShapes().get(i);
+                        Shape shape = model.getShapes().get(i);
                         int x1 = shape.getX1();
                         int x2 = shape.getX2();
                         int y1 = shape.getY1();
@@ -141,12 +144,15 @@ public class Controller {
                 Color color = getColor();
                 boolean isFilled = view.getFilledCheckBox().isSelected();
 
-                if (view.getShapeType() == view.LINE)
-                    view.getShapes().add(new Line(x, y, width, height, color, thickness));
-                else if (view.getShapeType() == view.RECTANGLE)
-                    view.getShapes().add(new Rectangle(x, y, width, height, isFilled, color, thickness));
-                else if (view.getShapeType() == view.OVAL)
-                    view.getShapes().add(new Oval(x, y, width, height, isFilled, color, thickness));
+                if (view.getShapeType() == view.LINE) {
+                    model.getShapes().add(new Line(x, y, width, height, color, thickness));
+                }
+                else if (view.getShapeType() == view.RECTANGLE) {
+                    model.getShapes().add(new Rectangle(x, y, width, height, isFilled, color, thickness));
+                }
+                else if (view.getShapeType() == view.OVAL) {
+                    model.getShapes().add(new Oval(x, y, width, height, isFilled, color, thickness));
+                }
             }
 
             @Override
@@ -276,8 +282,8 @@ public class Controller {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    ArrayList<Shape> undoShapes = view.getUndoShapes();
-                    ArrayList<Shape> shapes = view.getShapes();
+                    ArrayList<Shape> undoShapes = model.getUndoShapes();
+                    ArrayList<Shape> shapes = model.getShapes();
                     FileOutputStream fileOutputStream = new FileOutputStream("temp.dat");
                     ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
                     objectOutputStream.writeObject(undoShapes);
@@ -299,9 +305,9 @@ public class Controller {
                     FileInputStream fileInputStream = new FileInputStream("temp.dat");
                     ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
                     ArrayList<Shape> undoShapes = (ArrayList<Shape>) objectInputStream.readObject();
-                    view.setUndoShapes(undoShapes);
+                    model.setUndoShapes(undoShapes);
                     ArrayList<Shape> shapes = (ArrayList<Shape>) objectInputStream.readObject();
-                    view.setShapes(shapes);
+                    model.setShapes(shapes);
                     view.repaint();
                 } catch (Exception ex) {
                     ex.printStackTrace();
@@ -315,10 +321,10 @@ public class Controller {
         view.getUndoButton().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                int size = view.getShapes().size();
+                int size = model.getShapes().size();
                 if (size > 0) {
-                    model.Shape temp = view.getShapes().remove(size - 1);
-                    view.getUndoShapes().add(temp);
+                    model.Shape temp = model.getShapes().remove(size - 1);
+                    model.getUndoShapes().add(temp);
                     view.repaint();
                 }
             }
@@ -330,14 +336,16 @@ public class Controller {
         view.getRedoButton().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                int size = view.getUndoShapes().size();
+                int size = model.getUndoShapes().size();
                 if (size > 0) {
-                    model.Shape temp = view.getUndoShapes().remove(size - 1);
-                    view.getShapes().add(temp);
+                    model.Shape temp = model.getUndoShapes().remove(size - 1);
+                    model.getUndoShapes().add(temp);
                     view.repaint();
                 }
             }
         });
+
+        view.setController(this);
     }
 
     public Model getModel() {
@@ -363,5 +371,9 @@ public class Controller {
             return Color.RED;
         else
             return null;
+    }
+
+    public ArrayList<Shape> getShapes() {
+        return model.getShapes();
     }
 }
