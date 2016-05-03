@@ -1,6 +1,5 @@
 package view;
 
-import controller.Listeners;
 import model.Line;
 import model.Oval;
 import model.Rectangle;
@@ -82,19 +81,6 @@ public class Paint extends JFrame {
         canvas.setPreferredSize(new Dimension(0, 600));
         canvas.setBorder(new LineBorder(Color.BLACK));
         add(canvas, BorderLayout.CENTER);
-    }
-
-    /*
-        A simple main method
-     */
-    public static void main(String[] args) {
-        Paint paint = new Paint();
-        new Listeners(paint);
-        paint.setTitle("Paint");
-        paint.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        paint.setLocationRelativeTo(null);
-        paint.pack();
-        paint.setVisible(true);
     }
 
     /*
