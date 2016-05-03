@@ -1,12 +1,11 @@
 package model;
 
 import java.util.ArrayList;
-import java.util.Observable;
 
 /**
  * Created by Peonsson on 03/05/16.
  */
-public class Model extends Observable {
+public class Model {
 
     private ArrayList<Shape> shapes;
     private ArrayList<Shape> undoShapes;

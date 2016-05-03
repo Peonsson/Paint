@@ -199,6 +199,7 @@ public class View extends JFrame {
 
         @Override
         public void update(Observable o, Object arg) {
+            System.out.println("got update");
             this.repaint();
         }
     }

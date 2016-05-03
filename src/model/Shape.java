@@ -2,11 +2,12 @@ package model;
 
 import java.awt.*;
 import java.io.Serializable;
+import java.util.Observable;
 
 /**
  * Created by Peonsson on 2016-04-03.
  */
-public abstract class Shape implements Serializable {
+public abstract class Shape extends Observable implements Serializable {
 
     protected int x1 = 0;
     protected int y1 = 0;
@@ -28,6 +29,8 @@ public abstract class Shape implements Serializable {
         this.isFilled = isFilled;
         this.color = color;
         this.thickness = thickness;
+        setChanged();
+        notifyObservers();
     }
 
     public Shape(int x1, int y1, int x2, int y2, Color color, int thickness) {
@@ -37,6 +40,8 @@ public abstract class Shape implements Serializable {
         this.y2 = y2;
         this.color = color;
         this.thickness = thickness;
+        setChanged();
+        notifyObservers();
     }
 
     public boolean isFilled() {
@@ -45,6 +50,8 @@ public abstract class Shape implements Serializable {
 
     public void setFilled(boolean filled) {
         isFilled = filled;
+        setChanged();
+        notifyObservers();
     }
 
     public int getX1() {
@@ -53,6 +60,8 @@ public abstract class Shape implements Serializable {
 
     public void setX1(int x1) {
         this.x1 = x1;
+        setChanged();
+        notifyObservers();
     }
 
     public int getY1() {
@@ -61,6 +70,8 @@ public abstract class Shape implements Serializable {
 
     public void setY1(int y1) {
         this.y1 = y1;
+        setChanged();
+        notifyObservers();
     }
 
     public int getX2() {
@@ -69,6 +80,8 @@ public abstract class Shape implements Serializable {
 
     public void setX2(int x2) {
         this.x2 = x2;
+        setChanged();
+        notifyObservers();
     }
 
     public int getY2() {
@@ -77,6 +90,8 @@ public abstract class Shape implements Serializable {
 
     public void setY2(int y2) {
         this.y2 = y2;
+        setChanged();
+        notifyObservers();
     }
 
     public Color getColor() {
@@ -85,6 +100,8 @@ public abstract class Shape implements Serializable {
 
     public void setColor(Color color) {
         this.color = color;
+        setChanged();
+        notifyObservers();
     }
 
     public int getThickness() {
@@ -93,6 +110,8 @@ public abstract class Shape implements Serializable {
 
     public void setThickness(int thickness) {
         this.thickness = thickness;
+        setChanged();
+        notifyObservers();
     }
 
     @Override

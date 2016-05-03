@@ -45,7 +45,7 @@ public class Controller {
                     if (selectedShape instanceof Rectangle || selectedShape instanceof Oval) {
                         selectedShape.setX1(currentX + mouseDraggedX - mousePressedX);
                         selectedShape.setY1(currentY + mouseDraggedY - mousePressedY);
-                        view.repaint();
+//                        view.repaint();
                         return;
                     }
                 }
@@ -63,12 +63,14 @@ public class Controller {
                         height = mouseDraggedY;
                     }
                     int size = model.getShapes().size();
-                    model.Shape temp = model.getShapes().get(size - 1);
+                    if(size == 0)
+                        return;
+                    Shape temp = model.getShapes().get(size - 1);
                     temp.setX1(x);
                     temp.setY1(y);
                     temp.setX2(width);
                     temp.setY2(height);
-                    view.repaint();
+//                    view.repaint();
                 }
             }
 
@@ -181,7 +183,7 @@ public class Controller {
                 if (selectedShape != null) {
                     if (view.getShapeType() == view.SELECT) {
                         selectedShape.setColor(Color.BLACK);
-                        view.repaint();
+//                        view.repaint();
                     }
                 }
             }
@@ -197,7 +199,7 @@ public class Controller {
                 if (selectedShape != null) {
                     if (view.getShapeType() == view.SELECT) {
                         selectedShape.setColor(Color.BLUE);
-                        view.repaint();
+//                        view.repaint();
                     }
                 }
             }
@@ -213,7 +215,7 @@ public class Controller {
                 if (selectedShape != null) {
                     if (view.getShapeType() == view.SELECT) {
                         selectedShape.setColor(Color.RED);
-                        view.repaint();
+//                        view.repaint();
                     }
                 }
             }
@@ -229,7 +231,7 @@ public class Controller {
                 if (selectedShape != null) {
                     if (view.getShapeType() == view.SELECT) {
                         selectedShape.setColor(Color.YELLOW);
-                        view.repaint();
+//                        view.repaint();
                     }
                 }
             }
@@ -308,7 +310,7 @@ public class Controller {
                     model.setUndoShapes(undoShapes);
                     ArrayList<Shape> shapes = (ArrayList<Shape>) objectInputStream.readObject();
                     model.setShapes(shapes);
-                    view.repaint();
+//                    view.repaint();
                 } catch (Exception ex) {
                     ex.printStackTrace();
                 }
@@ -325,7 +327,7 @@ public class Controller {
                 if (size > 0) {
                     model.Shape temp = model.getShapes().remove(size - 1);
                     model.getUndoShapes().add(temp);
-                    view.repaint();
+//                    view.repaint();
                 }
             }
         });
@@ -340,7 +342,7 @@ public class Controller {
                 if (size > 0) {
                     model.Shape temp = model.getUndoShapes().remove(size - 1);
                     model.getUndoShapes().add(temp);
-                    view.repaint();
+//                    view.repaint();
                 }
             }
         });
