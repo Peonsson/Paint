@@ -28,8 +28,8 @@ public class View extends JFrame {
     /*
         Member variables
      */
-    private Controller controller;
 
+    private Controller controller;
     private int type = 1;
     private int color = 1;
     private myCanvas canvas = new myCanvas();
