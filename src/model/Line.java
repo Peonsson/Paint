@@ -1,5 +1,7 @@
 package model;
 
+import view.CanvasObserver;
+
 import java.awt.*;
 import java.io.Serializable;
 
@@ -8,8 +10,8 @@ import java.io.Serializable;
  */
 public class Line extends Shape implements Serializable {
 
-    public Line(int x1, int y1, int x2, int y2, Color color, int thickness) {
-        super(x1, y1, x2, y2, color, thickness);
+    public Line(int x1, int y1, int x2, int y2, Color color, int thickness, CanvasObserver observer) {
+        super(x1, y1, x2, y2, color, thickness, observer);
     }
 
     @Override

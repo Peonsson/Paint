@@ -3,6 +3,7 @@ package controller;
 import model.*;
 import model.Rectangle;
 import model.Shape;
+import view.CanvasObserver;
 import view.View;
 
 import java.awt.*;
@@ -27,10 +28,13 @@ public class Controller {
     private View view;
     private Shape selectedShape;
     private Model model;
+    private CanvasObserver observer;
 
-    public Controller(View view, Model model) {
+    public Controller(View view, Model model, CanvasObserver observer) {
         this.view = view;
         this.model = model;
+        this.observer = observer;
+        observer.setController(this);
 
         /*
             Animating new shapes / moving existing shapes
@@ -147,13 +151,13 @@ public class Controller {
                 boolean isFilled = view.getFilledCheckBox().isSelected();
 
                 if (view.getShapeType() == view.LINE) {
-                    model.getShapes().add(new Line(x, y, width, height, color, thickness));
+                    model.getShapes().add(new Line(x, y, width, height, color, thickness, observer));
                 }
                 else if (view.getShapeType() == view.RECTANGLE) {
-                    model.getShapes().add(new Rectangle(x, y, width, height, isFilled, color, thickness));
+                    model.getShapes().add(new Rectangle(x, y, width, height, isFilled, color, thickness, observer));
                 }
                 else if (view.getShapeType() == view.OVAL) {
-                    model.getShapes().add(new Oval(x, y, width, height, isFilled, color, thickness));
+                    model.getShapes().add(new Oval(x, y, width, height, isFilled, color, thickness, observer));
                 }
             }
 
@@ -348,6 +352,7 @@ public class Controller {
         });
 
         view.setController(this);
+        view.setCanvas(observer);
     }
 
     public Model getModel() {

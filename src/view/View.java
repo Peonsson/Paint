@@ -27,11 +27,10 @@ public class View extends JFrame {
     /*
         Member variables
      */
-
     private Controller controller;
+    private CanvasObserver canvas;
     private int type = 1;
     private int color = 1;
-    private myCanvas canvas = new myCanvas();
     private JPanel menuPanel = new JPanel();
     private JButton saveButton = new JButton("save");
     private JButton loadButton = new JButton("load");
@@ -54,11 +53,9 @@ public class View extends JFrame {
         Constructor
      */
     public View() {
-
         this.setTitle("View");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);
-
         menuPanel.add(saveButton);
         menuPanel.add(loadButton);
         menuPanel.add(selectButton);
@@ -88,7 +85,6 @@ public class View extends JFrame {
         canvas.setPreferredSize(new Dimension(0, 600));
         canvas.setBorder(new LineBorder(Color.BLACK));
         add(canvas, BorderLayout.CENTER);
-
         this.pack();
         this.setVisible(true);
     }
@@ -96,6 +92,10 @@ public class View extends JFrame {
     /*
         Getters and setters
      */
+
+    public void setCanvas(CanvasObserver canvas) {
+        this.canvas = canvas;
+    }
 
     public Controller getController() {
         return controller;
@@ -179,28 +179,5 @@ public class View extends JFrame {
 
     public JPanel getCanvas() {
         return canvas;
-    }
-
-    private class myCanvas extends JPanel implements Observer {
-
-        public myCanvas() {
-        }
-
-        @Override
-        protected void paintComponent(Graphics g) {
-            super.paintComponent(g);
-
-            if(controller == null) //check if controller have been initiated yet.
-                return;
-
-            for (Shape shape : controller.getShapes())
-                shape.draw(g);
-        }
-
-        @Override
-        public void update(Observable o, Object arg) {
-            System.out.println("got update");
-            this.repaint();
-        }
     }
 }

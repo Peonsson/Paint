@@ -1,5 +1,7 @@
 package model;
 
+import view.CanvasObserver;
+
 import java.awt.*;
 import java.io.Serializable;
 
@@ -8,8 +10,8 @@ import java.io.Serializable;
  */
 public class Oval extends Shape implements Serializable {
 
-    public Oval(int x1, int y1, int x2, int y2, boolean isFilled, Color color, int thickness) {
-        super(x1, y1, x2, y2, isFilled, color, thickness);
+    public Oval(int x1, int y1, int x2, int y2, boolean isFilled, Color color, int thickness, CanvasObserver observer) {
+        super(x1, y1, x2, y2, isFilled, color, thickness, observer);
     }
 
     @Override

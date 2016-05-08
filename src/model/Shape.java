@@ -1,5 +1,7 @@
 package model;
 
+import view.CanvasObserver;
+
 import java.awt.*;
 import java.io.Serializable;
 import java.util.Observable;
@@ -21,7 +23,10 @@ public abstract class Shape extends Observable implements Serializable {
 
     }
 
-    public Shape(int x1, int y1, int x2, int y2, boolean isFilled, Color color, int thickness) {
+    /*
+        Creating rectagle or oval
+     */
+    public Shape(int x1, int y1, int x2, int y2, boolean isFilled, Color color, int thickness, CanvasObserver observer) {
         this.x1 = x1;
         this.y1 = y1;
         this.x2 = x2;
@@ -29,19 +34,24 @@ public abstract class Shape extends Observable implements Serializable {
         this.isFilled = isFilled;
         this.color = color;
         this.thickness = thickness;
+        addObserver(observer);
         setChanged();
-        notifyObservers();
+        notifyObservers("added a shape");
     }
 
-    public Shape(int x1, int y1, int x2, int y2, Color color, int thickness) {
+    /*
+        Creating a line
+     */
+    public Shape(int x1, int y1, int x2, int y2, Color color, int thickness, CanvasObserver observer) {
         this.x1 = x1;
         this.y1 = y1;
         this.x2 = x2;
         this.y2 = y2;
         this.color = color;
         this.thickness = thickness;
+        addObserver(observer);
         setChanged();
-        notifyObservers();
+        notifyObservers("added a shape");
     }
 
     public boolean isFilled() {
@@ -51,7 +61,7 @@ public abstract class Shape extends Observable implements Serializable {
     public void setFilled(boolean filled) {
         isFilled = filled;
         setChanged();
-        notifyObservers();
+        notifyObservers("set filled");
     }
 
     public int getX1() {
