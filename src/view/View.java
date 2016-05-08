@@ -92,7 +92,6 @@ public class View extends JFrame {
     /*
         Getters and setters
      */
-
     public void setCanvas(CanvasObserver canvas) {
         this.canvas = canvas;
     }
