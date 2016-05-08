@@ -3,7 +3,6 @@ package controller;
 import model.*;
 import model.Rectangle;
 import model.Shape;
-import view.CanvasObserver;
 import view.View;
 
 import java.awt.*;
@@ -28,9 +27,9 @@ public class Controller {
     private View view;
     private Shape selectedShape;
     private Model model;
-    private CanvasObserver observer;
+    private MyObserver observer;
 
-    public Controller(View view, Model model, CanvasObserver observer) {
+    public Controller(View view, Model model, MyObserver observer) {
         this.view = view;
         this.model = model;
         this.observer = observer;
@@ -352,7 +351,6 @@ public class Controller {
         });
 
         view.setController(this);
-        view.setCanvas(observer);
     }
 
     public Model getModel() {

@@ -1,6 +1,6 @@
 package model;
 
-import view.CanvasObserver;
+import controller.MyObserver;
 
 import java.awt.*;
 import java.io.Serializable;
@@ -26,7 +26,7 @@ public abstract class Shape extends Observable implements Serializable {
     /*
         Creating rectagle or oval
      */
-    public Shape(int x1, int y1, int x2, int y2, boolean isFilled, Color color, int thickness, CanvasObserver observer) {
+    public Shape(int x1, int y1, int x2, int y2, boolean isFilled, Color color, int thickness, MyObserver observer) {
         this.x1 = x1;
         this.y1 = y1;
         this.x2 = x2;
@@ -42,7 +42,7 @@ public abstract class Shape extends Observable implements Serializable {
     /*
         Creating a line
      */
-    public Shape(int x1, int y1, int x2, int y2, Color color, int thickness, CanvasObserver observer) {
+    public Shape(int x1, int y1, int x2, int y2, Color color, int thickness, MyObserver observer) {
         this.x1 = x1;
         this.y1 = y1;
         this.x2 = x2;

@@ -1,6 +1,6 @@
 package model;
 
-import view.CanvasObserver;
+import controller.MyObserver;
 
 import java.awt.*;
 import java.io.Serializable;
@@ -10,7 +10,7 @@ import java.io.Serializable;
  */
 public class Rectangle extends Shape implements Serializable {
 
-    public Rectangle(int x1, int y1, int x2, int y2, boolean isFilled, Color color, int thickness, CanvasObserver observer) {
+    public Rectangle(int x1, int y1, int x2, int y2, boolean isFilled, Color color, int thickness, MyObserver observer) {
         super(x1, y1, x2, y2, isFilled, color, thickness, observer);
     }
 

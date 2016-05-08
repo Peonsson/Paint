@@ -1,13 +1,11 @@
 package view;
 
 import controller.Controller;
-import model.Shape;
+import controller.MyObserver;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
-import java.util.Observable;
-import java.util.Observer;
 
 /**
  * Created by Peonsson on 2016-04-03.
@@ -28,7 +26,7 @@ public class View extends JFrame {
         Member variables
      */
     private Controller controller;
-    private CanvasObserver canvas;
+    private Canvas canvas = new Canvas(controller);
     private int type = 1;
     private int color = 1;
     private JPanel menuPanel = new JPanel();
@@ -92,10 +90,6 @@ public class View extends JFrame {
     /*
         Getters and setters
      */
-    public void setCanvas(CanvasObserver canvas) {
-        this.canvas = canvas;
-    }
-
     public Controller getController() {
         return controller;
     }
