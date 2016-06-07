@@ -27,13 +27,10 @@ public class Controller {
     private View view;
     private Shape selectedShape;
     private Model model;
-    private MyObserver observer;
 
-    public Controller(View view, Model model, MyObserver observer) {
+    public Controller(View view, Model model) {
         this.view = view;
         this.model = model;
-        this.observer = observer;
-        observer.setController(this);
 
         /*
             Animating new shapes / moving existing shapes
@@ -73,7 +70,6 @@ public class Controller {
                     temp.setY1(y);
                     temp.setX2(width);
                     temp.setY2(height);
-//                    view.repaint();
                 }
             }
 
@@ -150,13 +146,13 @@ public class Controller {
                 boolean isFilled = view.getFilledCheckBox().isSelected();
 
                 if (view.getShapeType() == view.LINE) {
-                    model.getShapes().add(new Line(x, y, width, height, color, thickness, observer));
+                    model.getShapes().add(new Line(x, y, width, height, color, thickness, view.getCanvas()));
                 }
                 else if (view.getShapeType() == view.RECTANGLE) {
-                    model.getShapes().add(new Rectangle(x, y, width, height, isFilled, color, thickness, observer));
+                    model.getShapes().add(new Rectangle(x, y, width, height, isFilled, color, thickness, view.getCanvas()));
                 }
                 else if (view.getShapeType() == view.OVAL) {
-                    model.getShapes().add(new Oval(x, y, width, height, isFilled, color, thickness, observer));
+                    model.getShapes().add(new Oval(x, y, width, height, isFilled, color, thickness, view.getCanvas()));
                 }
             }
 
@@ -186,7 +182,6 @@ public class Controller {
                 if (selectedShape != null) {
                     if (view.getShapeType() == view.SELECT) {
                         selectedShape.setColor(Color.BLACK);
-//                        view.repaint();
                     }
                 }
             }
@@ -202,7 +197,6 @@ public class Controller {
                 if (selectedShape != null) {
                     if (view.getShapeType() == view.SELECT) {
                         selectedShape.setColor(Color.BLUE);
-//                        view.repaint();
                     }
                 }
             }
@@ -218,7 +212,6 @@ public class Controller {
                 if (selectedShape != null) {
                     if (view.getShapeType() == view.SELECT) {
                         selectedShape.setColor(Color.RED);
-//                        view.repaint();
                     }
                 }
             }
@@ -234,7 +227,6 @@ public class Controller {
                 if (selectedShape != null) {
                     if (view.getShapeType() == view.SELECT) {
                         selectedShape.setColor(Color.YELLOW);
-//                        view.repaint();
                     }
                 }
             }
@@ -313,7 +305,6 @@ public class Controller {
                     model.setUndoShapes(undoShapes);
                     ArrayList<Shape> shapes = (ArrayList<Shape>) objectInputStream.readObject();
                     model.setShapes(shapes);
-//                    view.repaint();
                 } catch (Exception ex) {
                     ex.printStackTrace();
                 }
@@ -330,7 +321,6 @@ public class Controller {
                 if (size > 0) {
                     model.Shape temp = model.getShapes().remove(size - 1);
                     model.getUndoShapes().add(temp);
-//                    view.repaint();
                 }
             }
         });
@@ -345,20 +335,11 @@ public class Controller {
                 if (size > 0) {
                     model.Shape temp = model.getUndoShapes().remove(size - 1);
                     model.getUndoShapes().add(temp);
-//                    view.repaint();
                 }
             }
         });
 
         view.setController(this);
-    }
-
-    public Model getModel() {
-        return model;
-    }
-
-    public void setModel(Model model) {
-        this.model = model;
     }
 
     /*

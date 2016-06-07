@@ -1,7 +1,6 @@
 package view;
 
 import controller.Controller;
-import controller.MyObserver;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
@@ -26,7 +25,7 @@ public class View extends JFrame {
         Member variables
      */
     private Controller controller;
-    private Canvas canvas = new Canvas(controller);
+    private Canvas canvas = new Canvas();
     private int type = 1;
     private int color = 1;
     private JPanel menuPanel = new JPanel();
@@ -96,6 +95,7 @@ public class View extends JFrame {
 
     public void setController(Controller controller) {
         this.controller = controller;
+        canvas.setController(controller);
     }
 
     public int getColor() {
@@ -170,7 +170,7 @@ public class View extends JFrame {
         return blueRadioButton;
     }
 
-    public JPanel getCanvas() {
+    public view.Canvas getCanvas() {
         return canvas;
     }
 }

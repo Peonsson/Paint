@@ -1,5 +1,4 @@
 import controller.Controller;
-import controller.MyObserver;
 import model.Model;
 import view.View;
 
@@ -14,8 +13,6 @@ public class Main {
     public static void main(String[] args) {
         Model model = new Model();
         View view = new View();
-        MyObserver observer = new MyObserver();
-
-        Controller controller = new Controller(view, model, observer);
+        Controller controller = new Controller(view, model);
     }
 }
