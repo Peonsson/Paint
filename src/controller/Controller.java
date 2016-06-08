@@ -47,9 +47,9 @@ public class Controller {
 
                 if (view.getShapeType() == Type.SELECT && selectedShape != null) {
                     if (selectedShape instanceof Rectangle || selectedShape instanceof Oval) {
-                        selectedShape.setX1(currentX + mouseDraggedX - mousePressedX);
-                        selectedShape.setY1(currentY + mouseDraggedY - mousePressedY);
-//                        view.repaint();
+                        int x = currentX + mouseDraggedX - mousePressedX;
+                        int y = currentY + mouseDraggedY - mousePressedY;
+                        model.modifyShape(selectedShape, x, y);
                         return;
                     }
                 }
