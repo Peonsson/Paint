@@ -1,6 +1,7 @@
 package model;
 
 import java.util.Hashtable;
+import java.util.Set;
 
 /**
  * Created by robin on 8/6/16.
@@ -26,5 +27,9 @@ public class ShapeCache {
         Rectangle rectangle = new Rectangle();
         rectangle.setId(Type.RECTANGLE);
         map.put(rectangle.getId(), rectangle);
+    }
+
+    public static Set<Type> getCacheTypes() {
+        return map.keySet();
     }
 }

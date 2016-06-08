@@ -5,6 +5,7 @@ import model.Rectangle;
 import model.Shape;
 import view.View;
 
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.FileInputStream;
@@ -28,6 +29,7 @@ public class Controller {
     private View view;
     private Shape selectedShape;
     private Model model;
+
 
     public Controller(View view, Model model) {
         this.view = view;
@@ -249,35 +251,19 @@ public class Controller {
             }
         });
 
-        /*
-            Line button
-         */
-        view.getLineButton().addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                view.setType(Type.LINE);
-            }
-        });
 
-        /*
-            Oval button
-         */
-        view.getOvalButton().addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                view.setType(Type.OVAL);
-            }
-        });
+        ArrayList<JButton> buttons = view.getShapeButtons();
 
-        /*
-            Rect button
-         */
-        view.getRectButton().addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                view.setType(Type.RECTANGLE);
-            }
-        });
+        for (int i = 0; i < buttons.size(); i++) {
+            final JButton button = buttons.get(i);
+
+            button.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    view.setType(Type.valueOf(button.getText()));
+                }
+            });
+        }
 
         /*
             Select button

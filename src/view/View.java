@@ -2,10 +2,14 @@ package view;
 
 import controller.Controller;
 import model.Model;
+import model.ShapeCache;
+import model.ShapeFactory;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.Set;
 
 /**
  * Created by Peonsson on 2016-04-03.
@@ -33,9 +37,9 @@ public class View extends JFrame {
     private JButton saveButton = new JButton("save");
     private JButton loadButton = new JButton("load");
     private JButton selectButton = new JButton("select");
-    private JButton ovalButton = new JButton("oval");
-    private JButton rectButton = new JButton("rect");
-    private JButton lineButton = new JButton("line");
+
+    private ArrayList<JButton> shapeButtons = new ArrayList<>();
+
     private JButton undoButton = new JButton("undo");
     private JButton redoButton = new JButton("redo");
     private JRadioButton blackRadioButton = new JRadioButton("black");
@@ -57,9 +61,9 @@ public class View extends JFrame {
         menuPanel.add(saveButton);
         menuPanel.add(loadButton);
         menuPanel.add(selectButton);
-        menuPanel.add(ovalButton);
-        menuPanel.add(rectButton);
-        menuPanel.add(lineButton);
+
+        addShapeButtons();
+
         menuPanel.add(undoButton);
         menuPanel.add(redoButton);
         menuPanel.add(blackRadioButton);
@@ -87,6 +91,7 @@ public class View extends JFrame {
         this.setVisible(true);
     }
 
+
     /*
         Getters and setters
      */
@@ -97,6 +102,14 @@ public class View extends JFrame {
     public void setController(Controller controller) {
         this.controller = controller;
         canvas.setController(controller);
+    }
+
+    public ArrayList<JButton> getShapeButtons() {
+        return shapeButtons;
+    }
+
+    public void setShapeButtons(ArrayList<JButton> shapeButtons) {
+        this.shapeButtons = shapeButtons;
     }
 
     public int getColor() {
@@ -143,18 +156,6 @@ public class View extends JFrame {
         return loadButton;
     }
 
-    public JButton getOvalButton() {
-        return ovalButton;
-    }
-
-    public JButton getRectButton() {
-        return rectButton;
-    }
-
-    public JButton getLineButton() {
-        return lineButton;
-    }
-
     public JRadioButton getBlackRadioButton() {
         return blackRadioButton;
     }
@@ -173,5 +174,16 @@ public class View extends JFrame {
 
     public view.Canvas getCanvas() {
         return canvas;
+    }
+
+    private void addShapeButtons() {
+        Set<model.Type> types = ShapeCache.getCacheTypes();
+
+        for (model.Type type : types) {
+            JButton button = new JButton(type.toString());
+            shapeButtons.add(button);
+            menuPanel.add(button);
+        }
+
     }
 }
