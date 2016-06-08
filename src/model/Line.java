@@ -8,6 +8,8 @@ import java.io.Serializable;
  */
 public class Line extends Shape implements Serializable {
 
+    private Boolean first = true;
+
     public Line() {}
 
     public Line(int x1, int y1, int x2, int y2, Color color, int thickness, view.Canvas canvas) {
@@ -24,6 +26,12 @@ public class Line extends Shape implements Serializable {
         Graphics2D g2 = (Graphics2D) g;
         g2.setStroke(new BasicStroke(thickness));
         g.setColor(color);
+
+        if(first) {
+            x2 = x1;
+            y2 = y1;
+            first = false;
+        }
         g.drawLine(x1, y1, x2, y2);
     }
 }

@@ -17,15 +17,15 @@ public class ShapeCache {
 
     public static void loadCache() {
         Line line = new Line();
-        line.setId(Type.LINE);
+        line.setId(Type.line);
         map.put(line.getId(), line);
 
         Oval oval = new Oval();
-        oval.setId(Type.OVAL);
+        oval.setId(Type.oval);
         map.put(oval.getId(), oval);
 
         Rectangle rectangle = new Rectangle();
-        rectangle.setId(Type.RECTANGLE);
+        rectangle.setId(Type.rectangle);
         map.put(rectangle.getId(), rectangle);
     }
 

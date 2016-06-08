@@ -30,8 +30,8 @@ public class Controller {
     private Shape selectedShape;
     private Model model;
 
-
     public Controller(View view, Model model) {
+
         this.view = view;
         this.model = model;
 
@@ -47,7 +47,7 @@ public class Controller {
                 int mouseDraggedX = e.getX();
                 int mouseDraggedY = e.getY();
 
-                if (view.getShapeType() == Type.SELECT && selectedShape != null) {
+                if (view.getShapeType() == Type.select && selectedShape != null) {
                     if (selectedShape instanceof Rectangle || selectedShape instanceof Oval) {
                         int x = currentX + mouseDraggedX - mousePressedX;
                         int y = currentY + mouseDraggedY - mousePressedY;
@@ -56,18 +56,19 @@ public class Controller {
                     }
                 }
 
-                if (view.getShapeType() == Type.RECTANGLE || view.getShapeType() == Type.OVAL || view.getShapeType() == Type.LINE) {
-                    if (view.getShapeType() == Type.RECTANGLE || view.getShapeType() == Type.OVAL) {
+                if (view.getShapeType() == Type.rectangle || view.getShapeType() == Type.oval || view.getShapeType() == Type.line) {
+                    if (view.getShapeType() == Type.rectangle || view.getShapeType() == Type.oval) {
                         width = Math.abs(mouseDraggedX - mousePressedX);
                         height = Math.abs(mouseDraggedY - mousePressedY);
                         x = Math.min(mouseDraggedX, mousePressedX);
                         y = Math.min(mouseDraggedY, mousePressedY);
-                    } else if (view.getShapeType() == Type.LINE) {
+                    } else if (view.getShapeType() == Type.line) {
                         x = mousePressedX;
                         y = mousePressedY;
                         width = mouseDraggedX;
                         height = mouseDraggedY;
                     }
+
                     int size = model.getShapes().size();
                     if (size == 0)
                         return;
@@ -103,7 +104,7 @@ public class Controller {
                 /*
                     Selecting a shape
                  */
-                if (view.getShapeType() == Type.SELECT) {
+                if (view.getShapeType() == Type.select) {
                     int listSize = model.getShapes().size();
                     for (int i = listSize - 1; i >= 0; i--) { // for all shapes
                         Shape shape = model.getShapes().get(i);
@@ -147,32 +148,14 @@ public class Controller {
                 boolean isFilled = view.getFilledCheckBox().isSelected();
 
                 Shape shape = shapeFactory.createShape(view.getShapeType());
-                shape.setX1(x);
-                shape.setY1(y);
-                shape.setX2(width);
-                shape.setY2(height);
+                shape.setX1(mousePressedX);
+                shape.setY1(mousePressedY);
+                shape.setX2(0);
+                shape.setY2(0);
                 shape.setColor(color);
                 shape.setThickness(thickness);
                 shape.setFilled(isFilled);
                 model.addShape(shape);
-
-
-//                /*
-//                    Create new shape
-//                 */
-//                int thickness = Integer.parseInt((String) view.getThicknessComboBox().getSelectedItem());
-//                Color color = getColor();
-//                boolean isFilled = view.getFilledCheckBox().isSelected();
-//
-//                if (view.getShapeType() == view.LINE) {
-//                    model.getShapes().add(new Line(x, y, width, height, color, thickness, view.getCanvas()));
-//                }
-//                else if (view.getShapeType() == view.RECTANGLE) {
-//                    model.getShapes().add(new Rectangle(x, y, width, height, isFilled, color, thickness, view.getCanvas()));
-//                }
-//                else if (view.getShapeType() == view.OVAL) {
-//                    model.getShapes().add(new Oval(x, y, width, height, isFilled, color, thickness, view.getCanvas()));
-//                }
             }
 
             @Override
@@ -199,7 +182,7 @@ public class Controller {
             public void actionPerformed(ActionEvent e) {
                 view.setColor(view.BLACK);
                 if (selectedShape != null) {
-                    if (view.getShapeType() == Type.SELECT) {
+                    if (view.getShapeType() == Type.select) {
                         model.modifyShape(selectedShape, Color.BLACK);
                     }
                 }
@@ -214,7 +197,7 @@ public class Controller {
             public void actionPerformed(ActionEvent e) {
                 view.setColor(view.BLUE);
                 if (selectedShape != null) {
-                    if (view.getShapeType() == Type.SELECT) {
+                    if (view.getShapeType() == Type.select) {
                         model.modifyShape(selectedShape, Color.BLUE);
                     }
                 }
@@ -229,7 +212,7 @@ public class Controller {
             public void actionPerformed(ActionEvent e) {
                 view.setColor(view.RED);
                 if (selectedShape != null) {
-                    if (view.getShapeType() == Type.SELECT) {
+                    if (view.getShapeType() == Type.select) {
                         model.modifyShape(selectedShape, Color.RED);
                     }
                 }
@@ -244,7 +227,7 @@ public class Controller {
             public void actionPerformed(ActionEvent e) {
                 view.setColor(view.YELLOW);
                 if (selectedShape != null) {
-                    if (view.getShapeType() == Type.SELECT) {
+                    if (view.getShapeType() == Type.select) {
                         model.modifyShape(selectedShape, Color.YELLOW);
                     }
                 }
@@ -271,7 +254,7 @@ public class Controller {
         view.getSelectButton().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                view.setType(Type.SELECT);
+                view.setType(Type.select);
             }
         });
 
@@ -282,7 +265,7 @@ public class Controller {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (selectedShape != null) {
-                    if (view.getShapeType() == Type.SELECT) {
+                    if (view.getShapeType() == Type.select) {
                         Boolean isFilled = view.getFilledCheckBox().isSelected();
                         model.modifyShape(selectedShape, isFilled);
                     }
@@ -295,7 +278,7 @@ public class Controller {
         view.getThicknessComboBox().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (view.getShapeType() == Type.SELECT) {
+                if (view.getShapeType() == Type.select) {
                     int thickness = Integer.parseInt((String) view.getThicknessComboBox().getSelectedItem());
                     model.modifyShape(selectedShape, thickness);
                 }
