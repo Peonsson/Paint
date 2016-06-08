@@ -11,21 +11,14 @@ public class ShapeFactory extends AbstractShapeFactory {
 
     @Override
     public Shape createShape(Type type) {
-        /*
-            Create new shape
-         */
-//        int thickness = Integer.parseInt((String) view.getThicknessComboBox().getSelectedItem());
-//        Color color = getColor();
-//        boolean isFilled = view.getFilledCheckBox().isSelected();
-
         if (type == Type.LINE) {
-            return new Line();
+            return ShapeCache.getShape(Type.LINE);
         }
         else if (type == Type.RECTANGLE) {
-            return new Rectangle();
+            return ShapeCache.getShape(Type.RECTANGLE);
         }
         else if (type == Type.OVAL) {
-            return new Oval();
+            return ShapeCache.getShape(Type.OVAL);
         }
 
         return null;

@@ -9,7 +9,7 @@ public class ShapeCache {
 
     private static Hashtable<Type, Shape> map = new Hashtable<>();
 
-    public static Shape getShape(String shapeId) {
+    public static Shape getShape(Type shapeId) {
         Shape cachedShape = map.get(shapeId);
         return (Shape) cachedShape.clone();
     }

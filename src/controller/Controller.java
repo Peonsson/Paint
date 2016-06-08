@@ -150,6 +150,7 @@ public class Controller {
                 shape.setX2(width);
                 shape.setY2(height);
                 shape.setColor(color);
+                shape.setThickness(thickness);
                 shape.setFilled(isFilled);
                 model.addShape(shape);
 
