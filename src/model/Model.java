@@ -14,12 +14,8 @@ public class Model extends Observable {
     private Stack<Command> commandStack;
     private Stack<Command> undoCommandStack;
 
-//    private ArrayList<Shape> shapes;
-//    private ArrayList<Shape> undoShapes;
-
     public Model() {
-//        this.shapes = new ArrayList<>();
-//        this.undoShapes = new ArrayList<>();
+        this.shapes = new ArrayList<>();
         this.commandStack = new Stack<>();
         this.undoCommandStack = new Stack<>();
     }
@@ -53,9 +49,8 @@ public class Model extends Observable {
     public void addShape(Shape shape) {
         // Vi ska skapa ett command -> sätta in i undo listan -> och köra command
         // storeAndExecute (rensar redoStack pushar undoStacken -> execute command)
-//        shapes.add(shape);
 
-        AddCommand command = new AddCommand();
+        AddCommand command = new AddCommand(shapes, shape);
         undoCommandStack.push(command);
         command.doCommand();
 

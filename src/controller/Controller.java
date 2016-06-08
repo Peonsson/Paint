@@ -13,6 +13,7 @@ import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import java.util.Stack;
 
 /**
  * Created by Peonsson on 2016-04-03.
@@ -292,12 +293,14 @@ public class Controller {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    ArrayList<Shape> undoShapes = model.getUndoShapes();
                     ArrayList<Shape> shapes = model.getShapes();
+                    Stack<Command> commands = model.getCommandStack();
+                    Stack<Command> undoCommands = model.getUndoCommandStack();
                     FileOutputStream fileOutputStream = new FileOutputStream("temp.dat");
                     ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
-                    objectOutputStream.writeObject(undoShapes);
                     objectOutputStream.writeObject(shapes);
+                    objectOutputStream.writeObject(undoCommands);
+                    objectOutputStream.writeObject(commands);
                     objectOutputStream.close();
                 } catch (Exception ex) {
                     ex.printStackTrace();
@@ -314,10 +317,12 @@ public class Controller {
                 try {
                     FileInputStream fileInputStream = new FileInputStream("temp.dat");
                     ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
-                    ArrayList<Shape> undoShapes = (ArrayList<Shape>) objectInputStream.readObject();
-                    model.setUndoShapes(undoShapes);
                     ArrayList<Shape> shapes = (ArrayList<Shape>) objectInputStream.readObject();
+                    Stack<Command> undoCommands = (Stack<Command>) objectInputStream.readObject();
+                    Stack<Command> commands = (Stack<Command>) objectInputStream.readObject();
                     model.setShapes(shapes);
+                    model.setCommandStack(commands);
+                    model.setUndoCommandStack(undoCommands);
                 } catch (Exception ex) {
                     ex.printStackTrace();
                 }
@@ -330,10 +335,11 @@ public class Controller {
         view.getUndoButton().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                int size = model.getShapes().size();
+                int size = model.getUndoCommandStack().size();
                 if (size > 0) {
-                    model.Shape temp = model.getShapes().remove(size - 1);
-                    model.getUndoShapes().add(temp);
+                    Command command = model.getUndoCommandStack().pop();
+                    command.undoCommand();
+                    model.getCommandStack().push(command);
                     model.update();
                 }
             }
@@ -345,10 +351,11 @@ public class Controller {
         view.getRedoButton().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                int size = model.getUndoShapes().size();
+                int size = model.getCommandStack().size();
                 if (size > 0) {
-                    model.Shape temp = model.getUndoShapes().remove(size - 1);
-                    model.getShapes().add(temp);
+                    Command command = model.getCommandStack().pop();
+                    command.doCommand();
+                    model.getUndoCommandStack().push(command);
                     model.update();
                 }
             }
