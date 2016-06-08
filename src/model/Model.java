@@ -1,5 +1,6 @@
 package model;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Observable;
 
@@ -57,6 +58,12 @@ public class Model extends Observable {
         shape.setX1(x);
         shape.setY1(y);
 
+        setChanged();
+        notifyObservers();
+    }
+
+    public void modifyShape(Shape shape, Color color) {
+        shape.setColor(color);
         setChanged();
         notifyObservers();
     }

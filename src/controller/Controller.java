@@ -198,7 +198,7 @@ public class Controller {
                 view.setColor(view.BLACK);
                 if (selectedShape != null) {
                     if (view.getShapeType() == Type.SELECT) {
-                        selectedShape.setColor(Color.BLACK);
+                        model.modifyShape(selectedShape, Color.BLACK);
                     }
                 }
             }
@@ -213,7 +213,7 @@ public class Controller {
                 view.setColor(view.BLUE);
                 if (selectedShape != null) {
                     if (view.getShapeType() == Type.SELECT) {
-                        selectedShape.setColor(Color.BLUE);
+                        model.modifyShape(selectedShape, Color.BLUE);
                     }
                 }
             }
@@ -228,7 +228,7 @@ public class Controller {
                 view.setColor(view.RED);
                 if (selectedShape != null) {
                     if (view.getShapeType() == Type.SELECT) {
-                        selectedShape.setColor(Color.RED);
+                        model.modifyShape(selectedShape, Color.RED);
                     }
                 }
             }
@@ -243,7 +243,7 @@ public class Controller {
                 view.setColor(view.YELLOW);
                 if (selectedShape != null) {
                     if (view.getShapeType() == Type.SELECT) {
-                        selectedShape.setColor(Color.YELLOW);
+                        model.modifyShape(selectedShape, Color.YELLOW);
                     }
                 }
             }
