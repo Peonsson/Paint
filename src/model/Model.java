@@ -67,4 +67,16 @@ public class Model extends Observable {
         setChanged();
         notifyObservers();
     }
+
+    public void modifyShape(Shape shape, Boolean isFilled) {
+        shape.setFilled(isFilled);
+        setChanged();
+        notifyObservers();
+    }
+
+    public void modifyShape(Shape selectedShape, int thickness) {
+        selectedShape.setThickness(thickness);
+        setChanged();
+        notifyObservers();
+    }
 }

@@ -290,6 +290,33 @@ public class Controller {
         });
 
         /*
+            isFilled checkbox
+         */
+        view.getFilledCheckBox().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (selectedShape != null) {
+                    if (view.getShapeType() == Type.SELECT) {
+                        Boolean isFilled = view.getFilledCheckBox().isSelected();
+                        model.modifyShape(selectedShape, isFilled);
+                    }
+                }
+            }
+        });
+        /*
+            Thickness combobox
+         */
+        view.getThicknessComboBox().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (view.getShapeType() == Type.SELECT) {
+                    int thickness = Integer.parseInt((String) view.getThicknessComboBox().getSelectedItem());
+                    model.modifyShape(selectedShape, thickness);
+                }
+            }
+        });
+
+        /*
             Save button
          */
         view.getSaveButton().addActionListener(new ActionListener() {
@@ -358,6 +385,7 @@ public class Controller {
 
         view.setController(this);
     }
+
 
     /*
             Converts a final static int to a Color object
