@@ -1,9 +1,7 @@
 package view;
 
 import controller.Controller;
-import model.Model;
 import model.ShapeCache;
-import model.ShapeFactory;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
@@ -37,6 +35,7 @@ public class View extends JFrame {
     private JButton saveButton = new JButton("save");
     private JButton loadButton = new JButton("load");
     private JButton selectButton = new JButton("select");
+    private JButton removeButton = new JButton("remove");
 
     private ArrayList<JButton> shapeButtons = new ArrayList<>();
 
@@ -52,8 +51,8 @@ public class View extends JFrame {
     private JCheckBox filledCheckBox = new JCheckBox("isFilled");
 
     /*
-        Constructor
-     */
+            Constructor
+         */
     public View() {
         this.setTitle("View");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -61,6 +60,7 @@ public class View extends JFrame {
         menuPanel.add(saveButton);
         menuPanel.add(loadButton);
         menuPanel.add(selectButton);
+        menuPanel.add(removeButton);
 
         addShapeButtons();
 
@@ -76,6 +76,7 @@ public class View extends JFrame {
         filledCheckBox.setSelected(true);
         ButtonGroup buttonGroup = new ButtonGroup();
         blackRadioButton.setSelected(true);
+
         buttonGroup.add(blackRadioButton);
         buttonGroup.add(yellowRadioButton);
         buttonGroup.add(redRadioButton);
@@ -174,6 +175,13 @@ public class View extends JFrame {
 
     public view.Canvas getCanvas() {
         return canvas;
+    }
+    public JButton getRemoveButton() {
+        return removeButton;
+    }
+
+    public void setRemoveButton(JButton removeButton) {
+        this.removeButton = removeButton;
     }
 
     private void addShapeButtons() {

@@ -47,8 +47,6 @@ public class Model extends Observable {
     }
 
     public void addShape(Shape shape) {
-        // Vi ska skapa ett command -> sätta in i undo listan -> och köra command
-        // storeAndExecute (rensar redoStack pushar undoStacken -> execute command)
 
         AddCommand command = new AddCommand(shapes, shape);
         undoCommandStack.push(command);
@@ -57,25 +55,33 @@ public class Model extends Observable {
         update();
     }
 
+    public void modifyShape(Shape shape, int x, int y, int width, int height, Color color, boolean isFilled, int thickness, boolean isFirst) {
+
+        EditCommand command = new EditCommand(shapes, shape, x, y, width, height, isFilled, color, thickness, isFirst);
+        undoCommandStack.push(command);
+        command.doCommand();
+        update();
+    }
+
     public void modifyShape(Shape shape, int x, int y, int width, int height) {
 
-        shape.setX1(x);
-        shape.setY1(y);
-        shape.setX2(width);
-        shape.setY2(height);
-
+        EditCommand command = new EditCommand(shapes, shape, x, y, width, height);
+        undoCommandStack.push(command);
+        command.doCommand();
         update();
     }
 
     public void modifyShape(Shape shape, int x, int y) {
 
-        shape.setX1(x);
-        shape.setY1(y);
+        EditCommand command = new EditCommand(shapes, shape, x, y);
+        undoCommandStack.push(command);
+        command.doCommand();
 
         update();
     }
 
     public void modifyShape(Shape shape, Color color) {
+
         shape.setColor(color);
         update();
     }
@@ -94,5 +100,12 @@ public class Model extends Observable {
     public void update() {
         setChanged();
         notifyObservers();
+    }
+
+    public void removeShape(Shape selectedShape) {
+        RemoveCommand command = new RemoveCommand(shapes, selectedShape);
+        undoCommandStack.push(command);
+        command.doCommand();
+        update();
     }
 }

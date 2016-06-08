@@ -52,7 +52,8 @@ public class Controller {
                     if (selectedShape instanceof Rectangle || selectedShape instanceof Oval) {
                         int x = currentX + mouseDraggedX - mousePressedX;
                         int y = currentY + mouseDraggedY - mousePressedY;
-                        model.modifyShape(selectedShape, x, y);
+//                        model.modifyShape(selectedShape, x, y);
+                        model.modifyShape(selectedShape, x, y, selectedShape.getX2(), selectedShape.getY2(), selectedShape.getColor(), selectedShape.isFilled(), selectedShape.getThickness(), selectedShape.isFirst());
                         return;
                     }
                 }
@@ -172,6 +173,15 @@ public class Controller {
             @Override
             public void mouseExited(MouseEvent e) {
 
+            }
+        });
+
+        view.getRemoveButton().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (selectedShape != null) {
+                    model.removeShape(selectedShape);
+                }
             }
         });
 

@@ -9,6 +9,7 @@ import java.io.Serializable;
 public abstract class Shape implements Serializable, Cloneable {
 
     protected Type id;
+    protected boolean first = true;
     protected int x1 = 0;
     protected int y1 = 0;
     protected int x2 = 0;
@@ -86,6 +87,14 @@ public abstract class Shape implements Serializable, Cloneable {
 
     public void setThickness(int thickness) {
         this.thickness = thickness;
+    }
+
+    public boolean isFirst() {
+        return first;
+    }
+
+    public void setFirst(boolean first) {
+        this.first = first;
     }
 
     @Override
