@@ -1,12 +1,13 @@
 package model;
 
 import java.awt.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * Created by robin on 8/6/16.
  */
-public class EditCommand implements Command {
+public class EditCommand implements Command, Serializable {
 
     private Shape shape;
     private ArrayList<Shape> shapes;
