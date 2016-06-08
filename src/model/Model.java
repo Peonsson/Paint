@@ -3,6 +3,7 @@ package model;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Observable;
+import java.util.Stack;
 
 /**
  * Created by Peonsson on 03/05/16.
@@ -10,11 +11,17 @@ import java.util.Observable;
 public class Model extends Observable {
 
     private ArrayList<Shape> shapes;
-    private ArrayList<Shape> undoShapes;
+    private Stack<Command> commandStack;
+    private Stack<Command> undoCommandStack;
+
+//    private ArrayList<Shape> shapes;
+//    private ArrayList<Shape> undoShapes;
 
     public Model() {
-        this.shapes = new ArrayList<>();
-        this.undoShapes = new ArrayList<>();
+//        this.shapes = new ArrayList<>();
+//        this.undoShapes = new ArrayList<>();
+        this.commandStack = new Stack<>();
+        this.undoCommandStack = new Stack<>();
     }
 
     public ArrayList<Shape> getShapes() {
@@ -27,21 +34,32 @@ public class Model extends Observable {
         notifyObservers();
     }
 
-    public ArrayList<Shape> getUndoShapes() {
-        return undoShapes;
+    public Stack<Command> getCommandStack() {
+        return commandStack;
     }
 
-    public void setUndoShapes(ArrayList<Shape> undoShapes) {
-        this.undoShapes = undoShapes;
+    public void setCommandStack(Stack<Command> commandStack) {
+        this.commandStack = commandStack;
+    }
+
+    public Stack<Command> getUndoCommandStack() {
+        return undoCommandStack;
+    }
+
+    public void setUndoCommandStack(Stack<Command> undoCommandStack) {
+        this.undoCommandStack = undoCommandStack;
     }
 
     public void addShape(Shape shape) {
         // Vi ska skapa ett command -> sätta in i undo listan -> och köra command
         // storeAndExecute (rensar redoStack pushar undoStacken -> execute command)
-        shapes.add(shape);
+//        shapes.add(shape);
 
-        setChanged();
-        notifyObservers();
+        AddCommand command = new AddCommand();
+        undoCommandStack.push(command);
+        command.doCommand();
+
+        update();
     }
 
     public void modifyShape(Shape shape, int x, int y, int width, int height) {
@@ -51,8 +69,7 @@ public class Model extends Observable {
         shape.setX2(width);
         shape.setY2(height);
 
-        setChanged();
-        notifyObservers();
+        update();
     }
 
     public void modifyShape(Shape shape, int x, int y) {
@@ -60,26 +77,23 @@ public class Model extends Observable {
         shape.setX1(x);
         shape.setY1(y);
 
-        setChanged();
-        notifyObservers();
+        update();
     }
 
     public void modifyShape(Shape shape, Color color) {
         shape.setColor(color);
-        setChanged();
-        notifyObservers();
+        update();
     }
 
     public void modifyShape(Shape shape, Boolean isFilled) {
         shape.setFilled(isFilled);
-        setChanged();
-        notifyObservers();
+        update();
     }
 
     public void modifyShape(Shape selectedShape, int thickness) {
         selectedShape.setThickness(thickness);
-        setChanged();
-        notifyObservers();
+
+        update();
     }
 
     public void update() {
