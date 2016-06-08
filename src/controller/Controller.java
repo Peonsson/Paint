@@ -296,7 +296,7 @@ public class Controller {
                 if (selectedShape != null) {
                     if (view.getShapeType() == Type.select) {
                         Boolean isFilled = view.getFilledCheckBox().isSelected();
-                        model.modifyShape(previousShapeState, x, y, width, height, getColor(), view.getFilledCheckBox().isSelected(), Integer.parseInt((String) view.getThicknessComboBox().getSelectedItem()), false);
+                        model.modifyShape(selectedShape, x, y, width, height, getColor(), view.getFilledCheckBox().isSelected(), Integer.parseInt((String) view.getThicknessComboBox().getSelectedItem()), false);
 //                        model.modifyShape(selectedShape, isFilled);
                     }
                 }
@@ -310,7 +310,7 @@ public class Controller {
             public void actionPerformed(ActionEvent e) {
                 if (view.getShapeType() == Type.select) {
                     int thickness = Integer.parseInt((String) view.getThicknessComboBox().getSelectedItem());
-                    model.modifyShape(previousShapeState, x, y, width, height, getColor(), view.getFilledCheckBox().isSelected(), Integer.parseInt((String) view.getThicknessComboBox().getSelectedItem()), false);
+                    model.modifyShape(selectedShape, x, y, width, height, getColor(), view.getFilledCheckBox().isSelected(), thickness, false);
 //                    model.modifyShape(selectedShape, thickness);
                 }
             }
