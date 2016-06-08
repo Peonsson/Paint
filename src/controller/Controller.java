@@ -208,7 +208,7 @@ public class Controller {
                 view.setColor(view.BLACK);
                 if (selectedShape != null) {
                     if (view.getShapeType() == Type.select) {
-                        model.modifyShape(previousShapeState, x, y, width, height, Color.BLACK, view.getFilledCheckBox().isSelected(), Integer.parseInt((String) view.getThicknessComboBox().getSelectedItem()), false);
+                        model.modifyShape(selectedShape, x, y, width, height, Color.BLACK, view.getFilledCheckBox().isSelected(), Integer.parseInt((String) view.getThicknessComboBox().getSelectedItem()), false);
 //                        model.modifyShape(selectedShape, Color.BLACK);
                     }
                 }
@@ -224,7 +224,7 @@ public class Controller {
                 view.setColor(view.BLUE);
                 if (selectedShape != null) {
                     if (view.getShapeType() == Type.select) {
-                        model.modifyShape(previousShapeState, x, y, width, height, Color.BLUE, view.getFilledCheckBox().isSelected(), Integer.parseInt((String) view.getThicknessComboBox().getSelectedItem()), false);
+                        model.modifyShape(selectedShape, x, y, width, height, Color.BLUE, view.getFilledCheckBox().isSelected(), Integer.parseInt((String) view.getThicknessComboBox().getSelectedItem()), false);
 //                        model.modifyShape(selectedShape, Color.BLUE);
                     }
                 }
@@ -240,7 +240,7 @@ public class Controller {
                 view.setColor(view.RED);
                 if (selectedShape != null) {
                     if (view.getShapeType() == Type.select) {
-                        model.modifyShape(previousShapeState, x, y, width, height, Color.RED, view.getFilledCheckBox().isSelected(), Integer.parseInt((String) view.getThicknessComboBox().getSelectedItem()), false);
+                        model.modifyShape(selectedShape, x, y, width, height, Color.RED, view.getFilledCheckBox().isSelected(), Integer.parseInt((String) view.getThicknessComboBox().getSelectedItem()), false);
 //                        model.modifyShape(selectedShape, Color.RED);
                     }
                 }
@@ -256,7 +256,7 @@ public class Controller {
                 view.setColor(view.YELLOW);
                 if (selectedShape != null) {
                     if (view.getShapeType() == Type.select) {
-                        model.modifyShape(previousShapeState, x, y, width, height, Color.YELLOW, view.getFilledCheckBox().isSelected(), Integer.parseInt((String) view.getThicknessComboBox().getSelectedItem()), false);
+                        model.modifyShape(selectedShape, x, y, width, height, Color.YELLOW, view.getFilledCheckBox().isSelected(), Integer.parseInt((String) view.getThicknessComboBox().getSelectedItem()), false);
 //                        model.modifyShape(selectedShape, Color.YELLOW);
                     }
                 }

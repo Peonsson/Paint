@@ -34,9 +34,6 @@ public class EditCommand implements Command {
         this.shapes = shapes;
         this.shape = shape;
 
-        System.out.println("prev x, y = " + shape.getX1() + ", " + shape.getY1());
-        System.out.println("new x, y = " + x + ", " + y);
-
         this.oldX = shape.getX1();
         this.oldY = shape.getY1();
         this.oldWidth = shape.getX2();
@@ -45,7 +42,6 @@ public class EditCommand implements Command {
         this.oldColor = shape.getColor();
         this.oldThickness = shape.getThickness();
         this.oldIsFirst = shape.isFirst();
-
 
         this.newX = x;
         this.newY = y;
@@ -83,50 +79,13 @@ public class EditCommand implements Command {
     @Override
     public void undoCommand() {
 
-
-        System.out.println("x before undo: " + oldX);
-        System.out.println("y before undo: " + oldY);
-        System.out.println("x after undo: " + newX);
-        System.out.println("y after undo: " + newY);
-
-        System.out.println("before undoing: " + shapes.toString());
-
-
-        shape.setX1(newX);
-        shape.setY1(newY);
-        shape.setX2(newWidth);
-        shape.setY2(newHeight);
-        shape.setFilled(newIsFilled);
-        shape.setColor(newColor);
-        shape.setThickness(newThickness);
-        shape.setFirst(newIsFirst);
-
-        shapes.add(shape);
-
-        Shape shapeToRemove = null;
-
-
-        for (Shape shape : shapes) {
-            if (shape.getX2() == newWidth && shape.getY2() == newHeight) {
-                shapeToRemove = shape;
-                break;
-            }
-        }
-
-        if (shapeToRemove != null)
-            shapes.remove(shapeToRemove);
-
-//        shapes.add(shape);
-
-
-//        shape.setX1(oldX);
-//        shape.setY1(oldY);
-//        shape.setX2(oldWidth);
-//        shape.setY2(oldHeight);
-//        shape.setFilled(oldIsFilled);
-//        shape.setColor(oldColor);
-//        shape.setThickness(oldThickness);
-//        shape.setFirst(oldIsFirst);
-        System.out.println("undoCommand shapeId: " + shape.toString());
+        shape.setX1(oldX);
+        shape.setY1(oldY);
+        shape.setX2(oldWidth);
+        shape.setY2(oldHeight);
+        shape.setFilled(oldIsFilled);
+        shape.setColor(oldColor);
+        shape.setThickness(oldThickness);
+        shape.setFirst(oldIsFirst);
     }
 }

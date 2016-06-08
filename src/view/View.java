@@ -2,6 +2,7 @@ package view;
 
 import controller.Controller;
 import model.ShapeCache;
+import model.Type;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
@@ -29,7 +30,7 @@ public class View extends JFrame {
      */
     private Controller controller;
     private Canvas canvas = new Canvas();
-    private model.Type type;
+    private model.Type type = model.Type.rectangle;
     private int color = 1;
     private JPanel menuPanel = new JPanel();
     private JButton saveButton = new JButton("save");
