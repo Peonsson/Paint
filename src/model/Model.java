@@ -40,4 +40,15 @@ public class Model extends Observable {
         setChanged();
         notifyObservers();
     }
+
+    public void modifyShape(Shape shape, int x, int y, int width, int height) {
+
+        shape.setX1(x);
+        shape.setY1(y);
+        shape.setX2(width);
+        shape.setY2(height);
+
+        setChanged();
+        notifyObservers();
+    }
 }

@@ -2,7 +2,6 @@ package model;
 
 import java.awt.*;
 import java.io.Serializable;
-import java.util.Observable;
 
 /**
  * Created by Peonsson on 2016-04-03.
@@ -80,8 +79,6 @@ public abstract class Shape implements Serializable, Cloneable {
 
     public void setX1(int x1) {
         this.x1 = x1;
-//        setChanged();
-//        notifyObservers();
     }
 
     public int getY1() {
@@ -90,8 +87,6 @@ public abstract class Shape implements Serializable, Cloneable {
 
     public void setY1(int y1) {
         this.y1 = y1;
-//        setChanged();
-//        notifyObservers();
     }
 
     public int getX2() {

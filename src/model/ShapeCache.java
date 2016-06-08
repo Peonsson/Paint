@@ -1,13 +1,12 @@
 package model;
 
-import view.View;
-
 import java.util.Hashtable;
 
 /**
  * Created by robin on 8/6/16.
  */
 public class ShapeCache {
+
     private static Hashtable<Type, Shape> map = new Hashtable<>();
 
     public static Shape getShape(String shapeId) {
