@@ -1,11 +1,12 @@
 package model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * Created by robin on 8/6/16.
  */
-public class RemoveCommand implements Command {
+public class RemoveCommand implements Command, Serializable {
 
     private ArrayList<Shape> shapes;
     private Shape shape;

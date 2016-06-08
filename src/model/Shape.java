@@ -37,8 +37,6 @@ public abstract class Shape implements Serializable, Cloneable {
 
     public void setFilled(boolean filled) {
         isFilled = filled;
-//        setChanged();
-//        notifyObservers("set filled");
     }
 
     public int getX1() {
