@@ -8,8 +8,16 @@ import java.io.Serializable;
  */
 public class Line extends Shape implements Serializable {
 
+    public Line() {}
+
     public Line(int x1, int y1, int x2, int y2, Color color, int thickness, view.Canvas canvas) {
-        super(x1, y1, x2, y2, color, thickness, canvas);
+//        super(x1, y1, x2, y2, color, thickness, canvas);
+        this.x1 = x1;
+        this.x2 = x2;
+        this.y1 = y1;
+        this.y2 = y2;
+        this.color = color;
+        this.thickness = thickness;
     }
 
     @Override

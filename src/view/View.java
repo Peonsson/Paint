@@ -1,6 +1,7 @@
 package view;
 
 import controller.Controller;
+import model.Model;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
@@ -26,7 +27,7 @@ public class View extends JFrame {
      */
     private Controller controller;
     private Canvas canvas = new Canvas();
-    private int type = 1;
+    private model.Type type;
     private int color = 1;
     private JPanel menuPanel = new JPanel();
     private JButton saveButton = new JButton("save");
@@ -106,11 +107,11 @@ public class View extends JFrame {
         this.color = color;
     }
 
-    public int getShapeType() {
+    public model.Type getShapeType() {
         return type;
     }
 
-    public void setType(int type) {
+    public void setType(model.Type type) {
         this.type = type;
     }
 

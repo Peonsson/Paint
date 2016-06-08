@@ -1,11 +1,12 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.Observable;
 
 /**
  * Created by Peonsson on 03/05/16.
  */
-public class Model {
+public class Model extends Observable {
 
     private ArrayList<Shape> shapes;
     private ArrayList<Shape> undoShapes;
@@ -29,5 +30,14 @@ public class Model {
 
     public void setUndoShapes(ArrayList<Shape> undoShapes) {
         this.undoShapes = undoShapes;
+    }
+
+    public void addShape(Shape shape) {
+        // Vi ska skapa ett command -> sätta in i undo listan -> och köra command
+        // storeAndExecute (rensar redoStack pushar undoStacken -> execute command)
+        shapes.add(shape);
+
+        setChanged();
+        notifyObservers();
     }
 }
