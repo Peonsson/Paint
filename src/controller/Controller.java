@@ -69,13 +69,9 @@ public class Controller {
                     int size = model.getShapes().size();
                     if(size == 0)
                         return;
-                    Shape temp = model.getShapes().get(size - 1);
 
+                    Shape temp = model.getShapes().get(size - 1);
                     model.modifyShape(temp, x, y, width, height);
-//                    temp.setX1(x);
-//                    temp.setY1(y);
-//                    temp.setX2(width);
-//                    temp.setY2(height);
                 }
             }
 
