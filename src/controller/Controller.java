@@ -67,7 +67,7 @@ public class Controller {
                         height = mouseDraggedY;
                     }
                     int size = model.getShapes().size();
-                    if(size == 0)
+                    if (size == 0)
                         return;
 
                     Shape temp = model.getShapes().get(size - 1);
@@ -121,7 +121,7 @@ public class Controller {
                                 boolean isFilled = selectedShape.isFilled();
                                 view.getFilledCheckBox().setSelected(isFilled);
                                 int thickness = selectedShape.getThickness();
-                                view.getThicknessComboBox().setSelectedIndex(thickness/2);
+                                view.getThicknessComboBox().setSelectedIndex(thickness / 2);
                                 Color color = selectedShape.getColor();
                                 if (color == Color.BLUE) {
                                     view.getBlueRadioButton().setSelected(true);
@@ -365,6 +365,7 @@ public class Controller {
                 if (size > 0) {
                     model.Shape temp = model.getShapes().remove(size - 1);
                     model.getUndoShapes().add(temp);
+                    model.update();
                 }
             }
         });
@@ -378,7 +379,8 @@ public class Controller {
                 int size = model.getUndoShapes().size();
                 if (size > 0) {
                     model.Shape temp = model.getUndoShapes().remove(size - 1);
-                    model.getUndoShapes().add(temp);
+                    model.getShapes().add(temp);
+                    model.update();
                 }
             }
         });
@@ -386,9 +388,8 @@ public class Controller {
         view.setController(this);
     }
 
-
     /*
-            Converts a final static int to a Color object
+        Converts a final static int to a Color object
      */
     private Color getColor() {
         int color = view.getColor();

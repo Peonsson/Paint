@@ -23,6 +23,8 @@ public class Model extends Observable {
 
     public void setShapes(ArrayList<Shape> shapes) {
         this.shapes = shapes;
+        setChanged();
+        notifyObservers();
     }
 
     public ArrayList<Shape> getUndoShapes() {
@@ -76,6 +78,11 @@ public class Model extends Observable {
 
     public void modifyShape(Shape selectedShape, int thickness) {
         selectedShape.setThickness(thickness);
+        setChanged();
+        notifyObservers();
+    }
+
+    public void update() {
         setChanged();
         notifyObservers();
     }
