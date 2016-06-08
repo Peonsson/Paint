@@ -21,39 +21,6 @@ public abstract class Shape implements Serializable, Cloneable {
 
     }
 
-    /*
-        Creating rectagle or oval
-     */
-//    public Shape(int x1, int y1, int x2, int y2, boolean isFilled, Color color, int thickness, view.Canvas canvas) {
-//        this.x1 = x1;
-//        this.y1 = y1;
-//        this.x2 = x2;
-//        this.y2 = y2;
-//        this.isFilled = isFilled;
-//        this.color = color;
-//        this.thickness = thickness;
-//        addObserver(canvas);
-//        setChanged();
-//        notifyObservers("added a shape");
-//        System.out.println("observer count:" + countObservers());
-//    }
-
-    /*
-        Creating a line
-     */
-//    public Shape(int x1, int y1, int x2, int y2, Color color, int thickness, view.Canvas canvas) {
-//        this.x1 = x1;
-//        this.y1 = y1;
-//        this.x2 = x2;
-//        this.y2 = y2;
-//        this.color = color;
-//        this.thickness = thickness;
-//        addObserver(canvas);
-//        setChanged();
-//        notifyObservers("added a shape");
-//        System.out.println("observer count:" + countObservers());
-//    }
-
 
     public Type getId() {
         return id;

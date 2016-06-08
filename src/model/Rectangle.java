@@ -11,7 +11,6 @@ public class Rectangle extends Shape implements Serializable {
     public Rectangle() {}
 
     public Rectangle(int x1, int y1, int x2, int y2, boolean isFilled, Color color, int thickness, view.Canvas canvas) {
-//        super(x1, y1, x2, y2, isFilled, color, thickness, canvas);
         this.x1 = x1;
         this.x2 = x2;
         this.y1 = y1;
