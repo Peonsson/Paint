@@ -53,15 +53,6 @@ public class EditCommand implements Command {
         this.newIsFirst = first;
     }
 
-    public EditCommand(ArrayList<Shape> shapes, Shape shape, int x, int y, int width, int height) {
-        this.shapes = shapes;
-        this.shape = shape;
-        this.newX = x;
-        this.newY = y;
-        this.newWidth = width;
-        this.newHeight = height;
-    }
-
     @Override
     public void doCommand() {
         System.out.println("doCommand shapeId: " + shape.toString());

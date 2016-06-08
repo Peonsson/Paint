@@ -55,9 +55,11 @@ public class Model extends Observable {
         update();
     }
 
-    public void modifyShape(Shape shape, int x, int y, int width, int height, Color color, boolean isFilled, int thickness, boolean isFirst) {
-        System.out.println("adding to undo stack");
-        EditCommand command = new EditCommand(shapes, shape, x, y, width, height, isFilled, color, thickness, isFirst);
+    public void modifyShape(Shape shape, Color color, boolean isFilled, int thickness, boolean isFirst) {
+
+        EditCommand command = new EditCommand(shapes, shape, shape.getX1(), shape.getY1(), shape.getX2(), shape.getY2(), isFilled, color, thickness, isFirst);
+
+        System.out.println("undo stack size: " + undoCommandStack.size());
         undoCommandStack.push(command);
         command.doCommand();
         update();
@@ -71,39 +73,6 @@ public class Model extends Observable {
         update();
     }
 
-//    public void modifyShape(Shape shape, int x, int y, int width, int height) {
-//
-//        EditCommand command = new EditCommand(shapes, shape, x, y, width, height);
-//        undoCommandStack.push(command);
-//        command.doCommand();
-//        update();
-//    }
-//
-//    public void modifyShape(Shape shape, int x, int y) {
-//
-//        EditCommand command = new EditCommand(shapes, shape, x, y);
-//        undoCommandStack.push(command);
-//        command.doCommand();
-//
-//        update();
-//    }
-
-//    public void modifyShape(Shape shape, Color color) {
-//
-//        shape.setColor(color);
-//        update();
-//    }
-//
-//    public void modifyShape(Shape shape, Boolean isFilled) {
-//        shape.setFilled(isFilled);
-//        update();
-//    }
-//
-//    public void modifyShape(Shape selectedShape, int thickness) {
-//        selectedShape.setThickness(thickness);
-//
-//        update();
-//    }
 
     public void update() {
         setChanged();
