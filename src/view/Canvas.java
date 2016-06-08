@@ -22,12 +22,12 @@ public class Canvas extends JPanel implements Observer {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
 
-        System.out.println("painted component");
+        //System.out.println("painted component");
         if (controller != null) {
-            System.out.println("controller not null");
+            //System.out.println("controller not null");
             for (model.Shape shape : controller.getShapes())
                 shape.draw(g);
-            System.out.println("size: " + controller.getShapes().size());
+            //System.out.println("size: " + controller.getShapes().size());
         }
     }
 

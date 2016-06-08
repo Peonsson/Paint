@@ -31,6 +31,8 @@ public class Controller {
     private Shape selectedShape;
     private Model model;
 
+    private Shape previousShapeState;
+
     public Controller(View view, Model model) {
 
         this.view = view;
@@ -43,6 +45,7 @@ public class Controller {
             Animating new shapes / moving existing shapes
          */
         view.getCanvas().addMouseMotionListener(new MouseMotionListener() {
+
             @Override
             public void mouseDragged(MouseEvent e) {
                 int mouseDraggedX = e.getX();
@@ -53,7 +56,9 @@ public class Controller {
                         int x = currentX + mouseDraggedX - mousePressedX;
                         int y = currentY + mouseDraggedY - mousePressedY;
 //                        model.modifyShape(selectedShape, x, y);
-                        model.modifyShape(selectedShape, x, y, selectedShape.getX2(), selectedShape.getY2(), selectedShape.getColor(), selectedShape.isFilled(), selectedShape.getThickness(), selectedShape.isFirst());
+                        // USED in wtf.mov VIDEO
+//                        model.modifyShapeAnimation(selectedShape, x, y, selectedShape.getX2(), selectedShape.getY2(), selectedShape.getColor(), selectedShape.isFilled(), selectedShape.getThickness(), selectedShape.isFirst());
+                        model.modifyShapeAnimation(selectedShape, x, y, selectedShape.getX2(), selectedShape.getY2(), selectedShape.getColor(), selectedShape.isFilled(), selectedShape.getThickness(), selectedShape.isFirst());
                         return;
                     }
                 }
@@ -76,7 +81,7 @@ public class Controller {
                         return;
 
                     Shape temp = model.getShapes().get(size - 1);
-                    model.modifyShape(temp, x, y, width, height);
+                    model.modifyShapeAnimation(temp, x, y, width, height, getColor(), view.getFilledCheckBox().isSelected(), Integer.parseInt((String) view.getThicknessComboBox().getSelectedItem()), false);
                 }
             }
 
@@ -117,6 +122,9 @@ public class Controller {
                         if (mousePressedX < x1 + x2 && mousePressedX > x1) { // we are within x
                             if (mousePressedY < y1 + y2 && mousePressedY > y1) { // we are within y
                                 selectedShape = shape; // A shape was selected
+
+                                previousShapeState = (Shape) selectedShape.clone();
+
                                 currentX = selectedShape.getX1();
                                 currentY = selectedShape.getY1();
 
@@ -162,7 +170,13 @@ public class Controller {
 
             @Override
             public void mouseReleased(MouseEvent e) {
-
+                System.out.println("shape type: " + view.getShapeType());
+                if (view.getShapeType() == Type.select) {
+                    System.out.println("mouse released event");
+                    // USED IN wtf.mov VIDEO
+//                    model.modifyShape(selectedShape, x, y, width, height, getColor(), view.getFilledCheckBox().isSelected(), Integer.parseInt((String) view.getThicknessComboBox().getSelectedItem()), false);
+                    model.modifyShape(previousShapeState, x, y, width, height, getColor(), view.getFilledCheckBox().isSelected(), Integer.parseInt((String) view.getThicknessComboBox().getSelectedItem()), false);
+                }
             }
 
             @Override
@@ -194,7 +208,8 @@ public class Controller {
                 view.setColor(view.BLACK);
                 if (selectedShape != null) {
                     if (view.getShapeType() == Type.select) {
-                        model.modifyShape(selectedShape, Color.BLACK);
+                        model.modifyShape(previousShapeState, x, y, width, height, Color.BLACK, view.getFilledCheckBox().isSelected(), Integer.parseInt((String) view.getThicknessComboBox().getSelectedItem()), false);
+//                        model.modifyShape(selectedShape, Color.BLACK);
                     }
                 }
             }
@@ -209,7 +224,8 @@ public class Controller {
                 view.setColor(view.BLUE);
                 if (selectedShape != null) {
                     if (view.getShapeType() == Type.select) {
-                        model.modifyShape(selectedShape, Color.BLUE);
+                        model.modifyShape(previousShapeState, x, y, width, height, Color.BLUE, view.getFilledCheckBox().isSelected(), Integer.parseInt((String) view.getThicknessComboBox().getSelectedItem()), false);
+//                        model.modifyShape(selectedShape, Color.BLUE);
                     }
                 }
             }
@@ -224,7 +240,8 @@ public class Controller {
                 view.setColor(view.RED);
                 if (selectedShape != null) {
                     if (view.getShapeType() == Type.select) {
-                        model.modifyShape(selectedShape, Color.RED);
+                        model.modifyShape(previousShapeState, x, y, width, height, Color.RED, view.getFilledCheckBox().isSelected(), Integer.parseInt((String) view.getThicknessComboBox().getSelectedItem()), false);
+//                        model.modifyShape(selectedShape, Color.RED);
                     }
                 }
             }
@@ -239,7 +256,8 @@ public class Controller {
                 view.setColor(view.YELLOW);
                 if (selectedShape != null) {
                     if (view.getShapeType() == Type.select) {
-                        model.modifyShape(selectedShape, Color.YELLOW);
+                        model.modifyShape(previousShapeState, x, y, width, height, Color.YELLOW, view.getFilledCheckBox().isSelected(), Integer.parseInt((String) view.getThicknessComboBox().getSelectedItem()), false);
+//                        model.modifyShape(selectedShape, Color.YELLOW);
                     }
                 }
             }
@@ -278,7 +296,8 @@ public class Controller {
                 if (selectedShape != null) {
                     if (view.getShapeType() == Type.select) {
                         Boolean isFilled = view.getFilledCheckBox().isSelected();
-                        model.modifyShape(selectedShape, isFilled);
+                        model.modifyShape(previousShapeState, x, y, width, height, getColor(), view.getFilledCheckBox().isSelected(), Integer.parseInt((String) view.getThicknessComboBox().getSelectedItem()), false);
+//                        model.modifyShape(selectedShape, isFilled);
                     }
                 }
             }
@@ -291,7 +310,8 @@ public class Controller {
             public void actionPerformed(ActionEvent e) {
                 if (view.getShapeType() == Type.select) {
                     int thickness = Integer.parseInt((String) view.getThicknessComboBox().getSelectedItem());
-                    model.modifyShape(selectedShape, thickness);
+                    model.modifyShape(previousShapeState, x, y, width, height, getColor(), view.getFilledCheckBox().isSelected(), Integer.parseInt((String) view.getThicknessComboBox().getSelectedItem()), false);
+//                    model.modifyShape(selectedShape, thickness);
                 }
             }
         });

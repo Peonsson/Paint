@@ -56,46 +56,54 @@ public class Model extends Observable {
     }
 
     public void modifyShape(Shape shape, int x, int y, int width, int height, Color color, boolean isFilled, int thickness, boolean isFirst) {
-
+        System.out.println("adding to undo stack");
         EditCommand command = new EditCommand(shapes, shape, x, y, width, height, isFilled, color, thickness, isFirst);
         undoCommandStack.push(command);
         command.doCommand();
         update();
     }
 
-    public void modifyShape(Shape shape, int x, int y, int width, int height) {
 
-        EditCommand command = new EditCommand(shapes, shape, x, y, width, height);
-        undoCommandStack.push(command);
+    public void modifyShapeAnimation(Shape animationShape, int x, int y, int width, int height, Color color, boolean isFilled, int thickness, boolean isFirst) {
+
+        EditCommand command = new EditCommand(shapes, animationShape, x, y, width, height, isFilled, color, thickness, isFirst);
         command.doCommand();
         update();
     }
 
-    public void modifyShape(Shape shape, int x, int y) {
+//    public void modifyShape(Shape shape, int x, int y, int width, int height) {
+//
+//        EditCommand command = new EditCommand(shapes, shape, x, y, width, height);
+//        undoCommandStack.push(command);
+//        command.doCommand();
+//        update();
+//    }
+//
+//    public void modifyShape(Shape shape, int x, int y) {
+//
+//        EditCommand command = new EditCommand(shapes, shape, x, y);
+//        undoCommandStack.push(command);
+//        command.doCommand();
+//
+//        update();
+//    }
 
-        EditCommand command = new EditCommand(shapes, shape, x, y);
-        undoCommandStack.push(command);
-        command.doCommand();
-
-        update();
-    }
-
-    public void modifyShape(Shape shape, Color color) {
-
-        shape.setColor(color);
-        update();
-    }
-
-    public void modifyShape(Shape shape, Boolean isFilled) {
-        shape.setFilled(isFilled);
-        update();
-    }
-
-    public void modifyShape(Shape selectedShape, int thickness) {
-        selectedShape.setThickness(thickness);
-
-        update();
-    }
+//    public void modifyShape(Shape shape, Color color) {
+//
+//        shape.setColor(color);
+//        update();
+//    }
+//
+//    public void modifyShape(Shape shape, Boolean isFilled) {
+//        shape.setFilled(isFilled);
+//        update();
+//    }
+//
+//    public void modifyShape(Shape selectedShape, int thickness) {
+//        selectedShape.setThickness(thickness);
+//
+//        update();
+//    }
 
     public void update() {
         setChanged();
